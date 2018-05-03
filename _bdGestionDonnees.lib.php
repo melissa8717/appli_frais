@@ -176,11 +176,11 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     // modification de la dernière fiche de frais du visiteur
     /*$dernierMois = obtenirDernierMoisSaisi($idCnx, $unIdVisiteur);
     $laDerniereFiche = obtenirDetailFicheFrais($idCnx, $dernierMois, $unIdVisiteur);
-    var_dump($laDerniereFiche);
     die();
     if ( is_array($laDerniereFiche) && $laDerniereFiche['idEtat']=='CR'){
         modifierEtatFicheFrais($idCnx, $dernierMois, $unIdVisiteur, 'CL');
     }*/
+
 
     // ajout de la fiche de frais à l'état Créé
     $requete = "insert into fichefrais (idVisiteur, mois, nbJustificatifs, montantValide, idEtat, dateModif) values ('"
@@ -189,19 +189,23 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $idCnx->query($requete);
 
     // ajout des éléments forfaitisés
-    $requete = "select id from FraisForfait";
-    $idJeuRes= $idCnx->query($requete);
+    var_dump('apres la requete de creation 1');
+    $requete_fraisforfait = "select idFrais from FraisForfait";
+    $idJeuRes= $idCnx->query($requete_fraisforfait);
+    var_dump($idJeuRes);
     if ( $idJeuRes ) {
         $ligne = $idJeuRes->fetch_assoc();
         while ( is_array($ligne) ) {
-            $idFraisForfait = $ligne["id"];
+            $idFraisForfait = $ligne["idFrais"];
             // insertion d'une ligne frais forfait dans la base
             $requete = "insert into LigneFraisForfait (idVisiteur, mois, idFraisForfait, quantite)
                         values ('" . $unIdVisiteur . "','" . $unMois . "','" . $idFraisForfait . "',0)";
+                        var_dump($unMois);
+var_dump($requete);
+
             $idCnx->query( $requete);
             // passage au frais forfait suivant
             $ligne = $idJeuRes->fetch_assoc ();
-            var_dump($ligne);
         }
         $idJeuRes->free_result();
     }
@@ -254,7 +258,6 @@ function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
     $requete = "select idFraisForfait, libelle, quantite from LigneFraisForfait
               inner join FraisForfait on FraisForfait.idFrais = LigneFraisForfait.idFraisForfait
               where idVisiteur='" . $unIdVisiteur . "' and mois='" . $unMois . "'";
-              die(var_dump($requete));
     return $requete;
 }
 
@@ -348,53 +351,72 @@ function modifierEltsForfait($idCnx, $unMois, $unIdVisiteur, $desEltsForfait) {
  * @return array tableau associatif ou booléen false
 
  */
-/*
-function hashAllMDP($visiteur){
-foreach($visiteur as $unLogin => $unMdp){
- if(strlen($unMdp)<5){
-	$req ="SELECT mdp ='".$unMdp."' FROM Visiteur";
- 	$hash = hashMDP("sha256",$unMdp);
 
-   	return $hash;
-
-	$visiteur->query($req);
-	return $req;
-	}
+function hashAllMDP($idCnx){
+	$req ="SELECT mdp FROM Visiteur";
+  $results = $idCnx->query($req);
+  while($mdp = $results->fetch_assoc()){
+    $mot_passe[] = $mdp['mdp'];
+  }
+  foreach ($mot_passe as $key => $value_mdp){
+    if (strlen($value_mdp) < 60) {
+      $hash = hashMDP($value_mdp);
+      $req_update = 'UPDATE Visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
+      $idCnx->query($req_update);
+    }
+  }
 }
 
 function hashMDP($unMdp){
-    $hash = hashMDP("sha256",$unMdp);
+    $hash = password_hash($unMdp, PASSWORD_DEFAULT);
     return $hash;
-}*/
+}
 
 
 
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
-    $unMdp = filtrerChainePourBD($unMdp);
-    // le mot de passe est crypté dans la base avec la fonction de hachage md5
-    $req = "select id, nom, prenom, login, mdp from Visiteur where  login='".$unLogin."' and  mdp='" . ($unMdp) . "'";
+    //$unMdp = filtrerChainePourBD($unMdp);
+    $req = "select id, nom, prenom, login, mdp from Visiteur where  login='".$unLogin."'";
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
     if ( $idJeuRes ) {
         $ligne = $idJeuRes->fetch_assoc();
         $idJeuRes->free_result();
     }
-    return $ligne;
+    // on vérifie le mot de passe
+    if(password_verify($unMdp, $ligne['mdp'])){
+      return $ligne;
+    }
+    else {
+      //le mot de passe ne correspond pas
+      return NULL;
+    }
 }
 
 function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
-    $unMdp = filtrerChainePourBD($unMdp);
+    //$unMdp = filtrerChainePourBD($unMdp);
     // le mot de passe est crypté dans la base avec la fonction de hachage md5
-    $req = "select id, nom, prenom, login, mdp from Visiteur where type='comptable' and  login='".$unLogin."' and mdp='" . $unMdp . "'";
+    $req = "select id, nom, prenom, login, mdp from Visiteur where type='comptable' and  login='".$unLogin."'";
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
     if ( $idJeuRes ) {
         $ligne = $idJeuRes->fetch_assoc();
         $idJeuRes->free_result();
-    }
-    return $ligne;
+
+      // on vérifie le mot de passe
+      if(password_verify($unMdp, $ligne['mdp'])){
+        var_dump( $ligne['mdp']);
+        return $ligne;
+        var_dump($ligne);
+      }
+      else {
+        //le mot de passe ne correspond pas
+        return NULL;
+      }
+
+  }
 }
 
 /**
@@ -408,10 +430,9 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
  * @param string $unMois mois sous la forme aaaamm
  * @return void
  */
-function modifierEtatFicheFrais($idCnx, $unMois, $unIdVisiteur, $unEtat) {
-    $requete = "update FicheFrais set idEtat = '" . $unEtat .
-               "', dateModif = now() where idVisiteur ='" .
-               $unIdVisiteur . "' and mois = '". $unMois . "'";
+function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $nbrJustficatif, $calulTotal) {
+    $requete = "update fichefrais set idEtat = 'VA', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calulTotal."' where idVisiteur ='" .
+               $unIdVisiteur . "'";
     $idCnx->query($requete);
 }
 
@@ -480,9 +501,8 @@ function infoVisiteur($idCnx, $unId){
   return $ligne;
 }
 
-function fraisForfait($idCnx, $unMois){
-  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais  and mois='" . $unMois . "'";
-  $unMois = filtrerChainePourBD($unMois);
+function fraisForfait($idCnx){
+  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais";
   $result = $idCnx->query($requeteForfait);
   if($result){
     $ligne= mysqli_fetch_all($result);
@@ -499,6 +519,41 @@ function calculfraisHF($idCnx, $unId){
   return $ligne;
 }
 
+function modifierEtatRefus($idCnx,$unIdVisiteur, $nbrJustficatif, $calulTotal) {
+    $requete = "update fichefrais set idEtat = 'RE', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calulTotal."' where idVisiteur ='" .
+               $unIdVisiteur . "'";
+    $idCnx->query($requete);
+}
 
+function modifierEtatRB($idCnx,$unIdVisiteur) {
+    $requete = "update fichefrais set idEtat = 'RB', dateModif = now() where idVisiteur ='" .
+               $unIdVisiteur . "'";
+    $idCnx->query($requete);
+}
+
+function calculKM($idCnx, $unId){
+  $requete_puissance = 'SELECT puissance FROM Vehicule WHERE idVisiteur="'.$unId.'"';
+  $result_puissance = $idCnx->query($requete_puissance);
+  if($result_puissance){
+    $puissance = mysqli_fetch_row($result_puissance);
+  }
+  switch($puissance[0]){
+    case '3':
+      $bareme = 0.286;
+      break;
+    case '4':
+      $bareme = 0.332;
+      break;
+    case '5':
+      $bareme = 0.364;
+      break;
+    case '6':
+      $bareme = 0.382;
+      break;
+    default:
+      $bareme = 0.401;
+  }
+  return $bareme;
+}
 
 ?>

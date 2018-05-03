@@ -43,6 +43,9 @@
            <li class="smenu">
               <a href="cConsultFichesFrais.php" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
            </li>
+           <li class="smenu">
+              <a href="cFicheRemboursement.php" title="Consultation de mes fiches de remboursement">Mes fiches de remboursement</a>
+           </li>
          </ul>
         <?php
           // affichage des éventuelles erreurs déjà détectées

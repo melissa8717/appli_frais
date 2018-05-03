@@ -15,6 +15,8 @@
   require($repInclude . "_sommaire.inc.php");
   // affectation du mois courant pour la saisie des fiches de frais
   $mois = sprintf("%04d%02d", date("Y"), date("m"));
+  var_dump($mois);
+
   // vérification de l'existence de la fiche de frais pour ce mois courant
   $existeFicheFrais = existeFicheFrais($idConnexion, $mois, obtenirIdUserConnecte());
   // si elle n'existe pas, on la crée avec les élets frais forfaitisés à 0
@@ -63,6 +65,7 @@
   <div id="contenu">
       <h2>Renseigner ma fiche de frais du mois de <?php echo obtenirLibelleMois(intval(substr($mois,4,2))) . " " . substr($mois,0,4); ?></h2>
 <?php
+
   if ($etape == "validerSaisie" || $etape == "validerAjoutLigneHF" || $etape == "validerSuppressionLigneHF") {
       if (nbErreurs($tabErreurs) > 0) {
           echo toStringErreurs($tabErreurs);
@@ -84,6 +87,7 @@
             // demande de la requête pour obtenir la liste des éléments
             // forfaitisés du visiteur connecté pour le mois demandé
             $req = obtenirReqEltsForfaitFicheFrais( $mois, obtenirIdUserConnecte());
+            var_dump($mois);
             $idJeuEltsFraisForfait = $idConnexion->query($req);
 
 

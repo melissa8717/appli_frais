@@ -7,6 +7,13 @@
   $repInclude = './include/';
   require($repInclude . "_init.inc.php");
 
+  if(isset($_POST['rembourser'])){
+    require('PDF.php');
+    ajouterErreur($tabErreurs, "Le fichier a bien été créé.");
+
+
+  }
+
   // est-on au 1er appel du programme ou non ?
   $etape=(count($_POST)!=0)?'validerConnexionCompta' : 'demanderConnexionCompta';
 
@@ -32,6 +39,9 @@
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaireComptable.inc.php");
 
+
+
+
 ?>
 
 
@@ -44,7 +54,7 @@
                 echo toStringErreurs($tabErreurs);
               }
           }
-$mois = date("m-y");
+$mois = date('m-y');
 ?>
 <div id="contenu">
 <?php $requeteVisiteur=infoVisiteur($idConnexion, $unId);
@@ -64,7 +74,7 @@ foreach ($requeteVisiteur as $value) {
         <td>Type</td><td>Quantité</td><td>Forfait</td><td>Total ligne</td>
       </tr>
 
-       <?php $requeteForfait=  fraisForfait($idConnexion, $mois);
+       <?php $requeteForfait=  fraisForfait($idConnexion);
        $calculFrais = 0;
 
        foreach ($requeteForfait as $valeur) { ?>
@@ -72,11 +82,18 @@ foreach ($requeteVisiteur as $value) {
        <tr>
          <?php
                              $unIdForfait =$valeur[0];
-                             $forfait=$valeur[2];
                              $frais = $valeur[3];
                              $idLigne=$valeur[4];
                              $mois=$valeur[6];
-                             $total_ligne = $forfait * $frais;
+                             if($unIdForfait != 'KM'){
+                               $total_ligne = $forfait * $frais;
+                               $forfait=$valeur[2];
+                             }
+                             else {
+                               $bareme = calculKM($idConnexion, $unId);
+                               $total_ligne = $bareme * $frais;
+                               $forfait = $bareme;
+                             }
          	?>
 
          <td><?php echo $unIdForfait ; ?></td><td><?php echo $frais ; ?></td><td><?php echo $forfait;?></td><td><?php echo $total_ligne;?></td>
@@ -111,12 +128,12 @@ foreach ($requeteVisiteur as $value) {
        </tr>
 
      <?php
-          $calulTotal = $calcul + $calculFrais; }
+           }
 
           $requeteCalcul = calculfraisHF($idConnexion, $unId);
           foreach ($requeteCalcul as $cal) {
             $calcul=$cal[0];
-
+            $calulTotal = $calcul + $calculFrais;
           } ?>
 
           <tr>
@@ -125,18 +142,37 @@ foreach ($requeteVisiteur as $value) {
      </table>
      <br />
      <table>
-       <tr>
-         <td>Totaux</td><td><?php echo $calulTotal;?></td>
+       <tr style="font-size: 25px;" >
+         <td ><strong>Totaux</strong></td><td><?php echo $calulTotal;?></td>
        </tr>
     </table>
-     <form id="" action="" method="post">
+ <form id="" action="" method="post">
     <div >
       <input type="hidden" name="etape" id="etape" value="validerConnexion" />
     <p>
       <label for="txtNbrJustificatif" >Nombre de justificatifs validés :</label>
       <input type="text" id="txtNbrJustificatif" name="txtNbrJustificatif"  />
     </p>
-    <a>Mise en paiement</a>
+<?php   if (isset($_POST['valider'])){
+    //Fonction de validation / enregistrement
+    modifierEtatFicheFrais($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+  } ?>
+    <input type="submit" id="ok" value="Mise en paiement" name="valider"/>
+    <?php   if (isset($_POST['refus'])){
+        //Fonction de validation / enregistrement
+        modifierEtatRefus($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+      } ?>
+    <input type="submit" id="refus" value="Refuser" name="refus"/>
+    <?php   if (isset($_POST['rembourser'])){
+        //Fonction de validation / enregistrement
+        modifierEtatRB($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+        echo 'Fiche de remboursement créée';
+
+      } ?>
+    <input type="submit" id="rembourser" value="Rembourser" name="rembourser"/>
+
+  <div>
+</form>
     <?php
     require($repInclude . "_pied.inc.html");
     require($repInclude . "_fin.inc.php");

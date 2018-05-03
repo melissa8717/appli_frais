@@ -37,6 +37,7 @@
 
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaireComptable.inc.php");
+  $unId = $_GET["id"];
 
 ?>
 

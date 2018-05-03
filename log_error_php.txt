@@ -1333,3 +1333,45 @@ Stack trace:
 [27-Apr-2018 20:53:47 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
 [27-Apr-2018 20:53:57 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
 [27-Apr-2018 21:07:02 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 13:54:07 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 14:27:42 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 14:37:24 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:06:46 Europe/Berlin] PHP Parse error:  syntax error, unexpected end of file in /var/www/html/PPE/_bdGestionDonnees.lib.php on line 503
+[29-Apr-2018 15:07:09 Europe/Berlin] PHP Parse error:  syntax error, unexpected end of file in /var/www/html/PPE/_bdGestionDonnees.lib.php on line 503
+[29-Apr-2018 15:07:10 Europe/Berlin] PHP Parse error:  syntax error, unexpected end of file in /var/www/html/PPE/_bdGestionDonnees.lib.php on line 503
+[29-Apr-2018 15:07:37 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:08:22 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:09:11 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:21:09 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:21:48 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:27:27 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:41:09 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:58:50 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:59:52 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 15:59:57 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 64
+[29-Apr-2018 16:00:35 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function listeVisiteur(), 3 passed in /var/www/html/PPE/cValideFrais.php on line 64 and exactly 4 expected in /var/www/html/PPE/_bdGestionDonnees.lib.php:432
+Stack trace:
+#0 /var/www/html/PPE/cValideFrais.php(64): listeVisiteur(Object(mysqli), 'bernard', 'hermite')
+#1 {main}
+  thrown in /var/www/html/PPE/_bdGestionDonnees.lib.php on line 432
+[29-Apr-2018 16:00:54 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:01:41 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:01:46 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:01:53 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:03:10 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:07:30 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:08:20 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:13:55 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 16:16:35 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[29-Apr-2018 17:38:29 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[01-May-2018 16:22:07 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[01-May-2018 18:11:02 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[02-May-2018 17:58:10 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 10:30:14 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 10:46:21 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 17:36:48 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 17:37:07 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 17:37:45 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 17:44:05 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 18:28:54 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[03-May-2018 18:45:34 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40

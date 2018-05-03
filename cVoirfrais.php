@@ -32,6 +32,7 @@
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaireComptable.inc.php");
 
+
 ?>
 
 
@@ -56,7 +57,7 @@ foreach ($requeteVisiteur as $value) {
 
 
  ?>
-<?php echo '<h1>'.'Mois de '.$mois.' pour '.$nom.' '.$prenom.'</h1>';?>
+<?php echo '<h1>'.'Mois de '.$mois.' pour '.$nom.' '.$prenom.'</h1>'; ?>
 <h2>Frais forfaitisés</h2>
 
      <table>
@@ -69,15 +70,12 @@ foreach ($requeteVisiteur as $value) {
 
        <tr>
          <?php
-                             $idFrais =$valeur[4];
+                             $idFrais =$valeur[3];
                              $frais = $valeur[0];
-                             $unId =$valeur[2];
-                             $idLigne=$valeur[1];
-                             $mois=$valeur[3];
-
+                             $Id =$valeur[2];
          	?>
 
-         <td><?php echo $idFrais ; ?></td><td><?php echo $frais ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$unId.'" target="_blank">Voir les justificatifs</a></td>';?>
+         <td><?php echo $idFrais ; ?></td><td><?php echo $frais ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$Id.'" target="_blank">Voir les justificatifs</a></td>';?>
        </tr>
      <?php }?>
 
@@ -105,6 +103,6 @@ foreach ($requeteVisiteur as $value) {
 
      </table>
 <br />
-<?php echo"".'<a href="../cFicheFrais.php/?id='.$unId.'">Créer la fiche de frais</a>';?><?php
+<?php echo"".'<a href="../cFicheFrais.php/?id='.$unId.'">Voir la fiche de frais</a>';?><?php
     require($repInclude . "_pied.inc.html");
     require($repInclude . "_fin.inc.php");
