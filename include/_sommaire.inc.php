@@ -15,6 +15,7 @@
           $lgUser = obtenirDetailVisiteur($idConnexion, $idUser);
           $nom = $lgUser['nom'];
           $prenom = $lgUser['prenom'];
+          $idUser=$lgUser['id']
 
     ?>
         <h2>
@@ -36,6 +37,9 @@
            </li>
            <li class="smenu">
               <a href="cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
+           </li>
+           <li class="smenu">
+              <?php echo'<a href="cConsultVehicule.php/?id='.$idUser.'"';?>  title="Consultation de mon véhicule">Mon véhicule</a>
            </li>
            <li class="smenu">
               <a href="cSaisieFicheFrais.php" title="Saisie fiche de frais du mois courant">Saisie fiche de frais</a>

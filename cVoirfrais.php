@@ -48,7 +48,7 @@
 $mois = date("m-y");
 ?>
 <div id="contenu">
-<?php $requeteVisiteur=infoVisiteur($idConnexion, $unId);
+<?php $requeteVisiteur= infoVisiteur($idConnexion, $unId);
 foreach ($requeteVisiteur as $value) {
   $nom=$value[0];
   $prenom=$value[1];
@@ -65,14 +65,14 @@ foreach ($requeteVisiteur as $value) {
        <tr>
         <td>Type</td><td>Quantité</td><td>Justificatifs</td></tr>
 
-       <?php $requete=  fraisAll($idConnexion, $unId, $mois);
+       <?php $requete=  fraisAll($idConnexion, $unId);
        foreach ($requete as $valeur) { ?>
 
        <tr>
          <?php
                              $idFrais =$valeur[3];
                              $frais = $valeur[0];
-                             $Id =$valeur[2];
+                             $Id =$valeur[1];
          	?>
 
          <td><?php echo $idFrais ; ?></td><td><?php echo $frais ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$Id.'" target="_blank">Voir les justificatifs</a></td>';?>

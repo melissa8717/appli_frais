@@ -56,8 +56,8 @@
 ?>
 
 
-     <table>
-       <tr>
+     <table class="listeLegere">
+       <tr class="corpsForm">
          <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs</td></tr>
 
       <?php

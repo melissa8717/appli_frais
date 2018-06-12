@@ -74,10 +74,10 @@ foreach ($requeteVisiteur as $value) {
         <td>Type</td><td>Quantité</td><td>Forfait</td><td>Total ligne</td>
       </tr>
 
-       <?php $requeteForfait=  fraisForfait($idConnexion);
+       <?php $requeteForfait=  fraisForfait($idConnexion, $unId);
        $calculFrais = 0;
 
-       foreach ($requeteForfait as $valeur) { ?>
+       foreach ($requeteForfait as $valeur ) { ?>
 
        <tr>
          <?php
@@ -85,21 +85,23 @@ foreach ($requeteVisiteur as $value) {
                              $frais = $valeur[3];
                              $idLigne=$valeur[4];
                              $mois=$valeur[6];
+                             $forfait=$valeur[2];
+
                              if($unIdForfait != 'KM'){
-                               $total_ligne = $forfait * $frais;
+                               $total_ligne = $forfait * $frais.' €';
                                $forfait=$valeur[2];
                              }
                              else {
                                $bareme = calculKM($idConnexion, $unId);
-                               $total_ligne = $bareme * $frais;
+                               $total_ligne = $bareme * $frais.' €';
                                $forfait = $bareme;
                              }
          	?>
 
          <td><?php echo $unIdForfait ; ?></td><td><?php echo $frais ; ?></td><td><?php echo $forfait;?></td><td><?php echo $total_ligne;?></td>
-       </tr>
+     </tr>
      <?php
-            $calculFrais = $calculFrais + $total_ligne;
+            $calculFrais = $calculFrais + $total_ligne.' €';
      }
 
      ?>
@@ -112,7 +114,7 @@ foreach ($requeteVisiteur as $value) {
      <h2>Frais hors forfait</h2>
      <table>
        <tr>
-        <td>Type</td><td>Montant en €</td></tr>
+        <td>Type</td><td>Montant</td></tr>
 
 
        <?php $requeteHF=  fraisHF($idConnexion, $unId);
@@ -124,7 +126,7 @@ foreach ($requeteVisiteur as $value) {
                              $montantFHF = $valeur[4];
 
            ?>
-         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td>
+         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF.' €' ; ?></td>
        </tr>
 
      <?php
@@ -137,13 +139,13 @@ foreach ($requeteVisiteur as $value) {
           } ?>
 
           <tr>
-            <td><h3>Total</h3></td><td><h3><?php echo $calcul;?></h3></td>
+            <td><h3>Total</h3></td><td><h3><?php echo $calcul.' €';?></h3></td>
           </tr>
      </table>
      <br />
      <table>
        <tr style="font-size: 25px;" >
-         <td ><strong>Totaux</strong></td><td><?php echo $calulTotal;?></td>
+         <td ><strong>Totaux</strong></td><td><?php echo $calulTotal.' €';?></td>
        </tr>
     </table>
  <form id="" action="" method="post">

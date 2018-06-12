@@ -189,10 +189,8 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $idCnx->query($requete);
 
     // ajout des éléments forfaitisés
-    var_dump('apres la requete de creation 1');
     $requete_fraisforfait = "select idFrais from FraisForfait";
     $idJeuRes= $idCnx->query($requete_fraisforfait);
-    var_dump($idJeuRes);
     if ( $idJeuRes ) {
         $ligne = $idJeuRes->fetch_assoc();
         while ( is_array($ligne) ) {
@@ -200,8 +198,7 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
             // insertion d'une ligne frais forfait dans la base
             $requete = "insert into LigneFraisForfait (idVisiteur, mois, idFraisForfait, quantite)
                         values ('" . $unIdVisiteur . "','" . $unMois . "','" . $idFraisForfait . "',0)";
-                        var_dump($unMois);
-var_dump($requete);
+
 
             $idCnx->query( $requete);
             // passage au frais forfait suivant
@@ -407,9 +404,7 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
 
       // on vérifie le mot de passe
       if(password_verify($unMdp, $ligne['mdp'])){
-        var_dump( $ligne['mdp']);
         return $ligne;
-        var_dump($ligne);
       }
       else {
         //le mot de passe ne correspond pas
@@ -430,8 +425,8 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
  * @param string $unMois mois sous la forme aaaamm
  * @return void
  */
-function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $nbrJustficatif, $calulTotal) {
-    $requete = "update fichefrais set idEtat = 'VA', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calulTotal."' where idVisiteur ='" .
+function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $nbrJustficatif, $calculTotal) {
+    $requete = "update fichefrais set idEtat = 'VA', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calculTotal."' where idVisiteur ='" .
                $unIdVisiteur . "'";
     $idCnx->query($requete);
 }
@@ -445,15 +440,27 @@ function ajoutVehicule($idCnx, $unIdVisiteur, $marque, $modele, $puissance) {
     $idCnx->query($requete);
 
 }
-/*
-function  obtenirInfo VH($idCnx, $unIdVisiteur, $marque, $modele, $assurance, $km){
-        $marque = filtrerChainePourBD($marque );
-        $requete = "
- * FROM Vehicule WHERE idVisiteur = '" . $unIdVisiteur .  "'";
-        $idCnx->query($requete);
-}*/
 
-function listeVisiteur($idCnx, $nom, $prenom, $unId){
+function  obtenirInfoVH($idCnx, $unId){
+        $requete = "select * FROM Vehicule WHERE idVisiteur = '" . $unId .  "'";
+
+            $result = $idCnx->query($requete);
+          if ( $result) {
+               $ligne = mysqli_fetch_all($result);
+            }
+
+
+            return $ligne;
+}
+
+function modifVH($idCnx, $marque, $modele, $puissance, $unIdVisiteur){
+$requeteMVH= "update Vehicule set  marque ='".$marque."', modele='".$modele."', puissance='".$puissance."' where idVisiteur ='" .$unIdVisiteur . "'";
+$idCnx->query($requeteMVH);
+
+
+}
+
+function listeVisiteur($idCnx, $unId){
     $req ="select nom, prenom, id, telephone from Visiteur";
     $result = $idCnx->query($req);
   if ( $result) {
@@ -462,9 +469,9 @@ function listeVisiteur($idCnx, $nom, $prenom, $unId){
 
 
     return $ligne;
-
-
 }
+
+
 
 function fraisAll($idCnx, $unId){
     $requete ="select * from LigneFraisForfait where LigneFraisForfait.idVisiteur ='". $unId . "'";
@@ -493,7 +500,7 @@ function fraisHF($idCnx, $unId){
 
 }
 function infoVisiteur($idCnx, $unId){
-  $requeteVisiteur = "select nom, prenom, id from Visiteur where id='". $unId . "'";
+    $requeteVisiteur = "select nom, prenom, id from Visiteur where id='". $unId . "'";
   $result = $idCnx->query($requeteVisiteur);
   if($result){
     $ligne = mysqli_fetch_all($result);
@@ -501,8 +508,8 @@ function infoVisiteur($idCnx, $unId){
   return $ligne;
 }
 
-function fraisForfait($idCnx){
-  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais";
+function fraisForfait($idCnx, $unId){
+  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais where idVisiteur='". $unId . "'";
   $result = $idCnx->query($requeteForfait);
   if($result){
     $ligne= mysqli_fetch_all($result);
@@ -555,5 +562,3 @@ function calculKM($idCnx, $unId){
   }
   return $bareme;
 }
-
-?>

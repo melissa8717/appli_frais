@@ -45,7 +45,7 @@
               }
           }
 
-    
+
 
           $path = $_SERVER['SERVER_NAME'] ;
           $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $_SESSION['url']);
@@ -54,18 +54,26 @@
         <?php  if(isset($_GET['delete'])){
             unlink($_SESSION['url']);
             echo '<h3>Fichier supprimé</h3>';
-            header('Refresh: 3; cGed.php');
-          }?>
-          <h1>Vérification du fichier</h1>
-          <h2>Merci de valider ou non le fichier téléchargé</h2>
+            header('Refresh: 4; cGed.php');
+          }
+          if(isset($_GET['valider'])){
+              echo '<h3>Fichier validé</h3>';
+              header('Refresh: 4; cGed.php');
+            }?>
           <table>
+          <tr>
+            <h1>Vérification du fichier</h1>
+            <h2>Merci de valider ou non le fichier téléchargé</h2>
+        </tr>
+
+            <tr >
+              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:130px;"/></td>
+            </tr>
             <tr>
-              <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2></td>
-              <td></td>
-              <td><h2><a href="cGed.php">Valider</a></h2></td>
+              <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2><h2><a href="?valider=cGed.php">Valider</a></h2></td>
+
             </tr>
           </table>
-          <img src="http://<?php echo $path_file;?>"/>
 
 <?php
 

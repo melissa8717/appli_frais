@@ -22,8 +22,13 @@ body{
 	height: 154px;
 	padding: 0em;
   box-shadow: 10px 10px 10px 5px #7ca1cf;
+  border-radius: 15px;
 
+}
 
+#entete h1{
+  padding-top:60px;
+  font-size: 35px;
 }
 #pied{
   clear : both;
@@ -41,6 +46,13 @@ body{
 	color: rgb(0,85,227);
 	float: left;
 	width: 14%;
+  border-radius: 15px;
+}
+
+#menuGauche h2{
+  border-radius: 15px;
+  border: 3px solid #7ca1cf;
+
 }
 
 #contenu{
@@ -70,6 +82,7 @@ ul#menuList{
     padding:0px;
     width:98%;
     font-size: 1em;
+    border-radius: 15px;
 }
 
 /* style � appliquer aux �l�ments de la balise ul d'identifiant menulist */
@@ -89,6 +102,8 @@ ul#menuList a {
 ul#menuList a:hover {
     background: rgb(0,85,227);
     color: white;
+    border-radius: 15px;
+    padding-left: 10px;
 }
 
 #entete #logoGSB {
@@ -109,10 +124,11 @@ ul#menuList a:hover {
   overflow : scroll;
 }
 #contenu h2 {
-  font-size : large;
   text-align:left;
   margin:0;
   margin-bottom:0.5em;
+  border-radius: 15px;
+  font-size: 18px;
 }
 
 .logoValidW3c {
@@ -129,6 +145,9 @@ ul#menuList a:hover {
   margin-bottom : 0em;
   width : 95%;
 }
+.corpsForm tr{
+  text-align: center;
+}
 .piedForm {
 
   text-align:right ;
@@ -143,6 +162,8 @@ form {
   background-color: #97A1CC;
   font-weight:bold;
   font-size:1.2em;
+  border-radius: 15px;
+  padding-left: 10px;
 }
 .corpsForm label{
 
@@ -156,6 +177,11 @@ form {
 input, button, textarea, select{
   font-family:"Trebuchet MS", sans-serif;
   font-size : 1em;
+  border-radius: 15px;
+  padding-left: 10px;
+  box-shadow: 2px 2px 2px 3px #8C979D;
+  padding-right: 10px;
+
 
 
 }
@@ -255,10 +281,10 @@ table.listeLegere {
 
 /* Tableaux quadrill�s utilis�s pour l'affichage de listes avec contenu l�ger*/
 table.listeLegere th, table.listeLegere td {
-  border : dotted rgb(178,207,81) 0.1em;
   padding:0.5em;
   vertical-align : top;
-  text-align : left;
+  text-align : center;
+  font-weight: bold;
 }
 
 table.listeLegere caption {
@@ -271,15 +297,20 @@ table.listeLegere td {
   font-weight:normal;
 }
 table.listeLegere th.eltForfait{
-  color:black;
+  color:black;date
 }
 table.listeLegere th.date, table.listeLegere th.montant{
   width:15%;
   color:black;
 }
 table.listeLegere th.libelle{
-  width:70%;
+  width:67.4%;
   color:black;
+}
+
+#contenu h1{
+  text-align: center;
+  color: #1F4151;
 }
 
 #contenu h2 {
@@ -289,9 +320,10 @@ table.listeLegere th.libelle{
 	color: #1D2941;
 	text-decoration: none;
 	border : 1px solid #6988BE;
-	padding-left: 25px;
 	background-color: #E9F1FE;
   height : 28px;
+  text-align: center;
+  padding-top: 10px;
 }
 
 #contenu img {
@@ -328,6 +360,7 @@ table.listeLegere th.libelle{
   text-align: center;
    background-color: #F4F5FB;
    border : 1px solid #6988BE;
+   margin-left: 200px;
 }
 
 #blockAccueil2{
@@ -339,6 +372,8 @@ table.listeLegere th.libelle{
   text-align: center;
    background-color: #F4F5FB;
    border : 1px solid #6988BE;
+   margin-left: 500px;
+
 }
 
 #frmConnexion{
@@ -361,4 +396,16 @@ table.listeLegere th.libelle{
 #imgUpload {
 margin-left: 180px;
 margin-top: 155px;
+}
+
+input[type=submit]{
+  color: #00A1F2;
+  border-radius: 15px;
+  height: 30px;
+  background-color: #E5EFFA;
+  box-shadow: 2px 2px 2px 2px #7ca1cf;
+}
+
+.smenu{
+  border-radius: 15px;
 }

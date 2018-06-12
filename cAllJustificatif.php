@@ -33,6 +33,7 @@
      $id=$_GET['id'];
      header("Location:/PPE/cVoirfrais.php/?id=$id");
   }
+  $unId = $_GET["id"];
 
 
   require($repInclude . "_entete.inc.html");
@@ -59,6 +60,7 @@ if(isset($_GET['id'])){
 
           $nbFichier = 0;
           $dir = '/var/www/html/PPE/upload/'.$unId."/";
+
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;
             $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $dir);
@@ -72,10 +74,14 @@ if(isset($_GET['id'])){
                 <?php echo '<td>'.'<img src="http://'.$path_file.'/'.$fichier.'"/>'.'</td>';?></tr>
 
 
-                <tr><td><h2><a href="?id=<?php echo $unId;?>&delete=<?php echo $dir.$fichier;?>">Refusé</a> </h2><td></tr><br /></table>;
+                <tr><td><h2><a href="?id=<?php echo $unId;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
               <?php }
             }
             closedir($dossier);
+
+          }
+          else{
+            echo ' Pas de frais ';
           }
 
 }

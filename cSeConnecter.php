@@ -1,22 +1,22 @@
-<?php  
-/** 
+<?php
+/**
  * Script de contrôle et d'affichage du cas d'utilisation "Se connecter"
  * @package default
  * @todo  RAS
  */
   $repInclude = './include/';
   require($repInclude . "_init.inc.php");
-  
+
   // est-on au 1er appel du programme ou non ?
   $etape=(count($_POST)!=0)?'validerConnexion' : 'demanderConnexion';
-  
+
   if ($etape=='validerConnexion') { // un client demande à s'authentifier
       // acquisition des données envoyées, ici login et mot de passe
       $login = lireDonneePost("txtLogin");
-      $mdp = lireDonneePost("txtMdp");   
+      $mdp = lireDonneePost("txtMdp");
       $lgUser = verifierInfosConnexion($idConnexion, $login, $mdp) ;
       // si l'id utilisateur a été trouvé, donc informations fournies sous forme de tableau
-      if ( is_array($lgUser) ) { 
+      if ( is_array($lgUser) ) {
           affecterInfosConnecte($lgUser["id"], $lgUser["login"]);
       }
       else {
@@ -29,41 +29,41 @@
 
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaire.inc.php");
-  
+
 ?>
 
 <!-- Division pour le contenu principal -->
     <div id="contenu">
-      <a href="cSeConnecterComptable.php">Identification comptable</a> 
+      <a href="cSeConnecterComptable.php">Identification comptable</a>
 
       <h2 id="frmConnexion">Identification utilisateur</h2>
 
 <?php
-          if ( $etape == "validerConnexion" ) 
+          if ( $etape == "validerConnexion" )
           {
-              if ( nbErreurs($tabErreurs) > 0 ) 
+              if ( nbErreurs($tabErreurs) > 0 )
               {
                 echo toStringErreurs($tabErreurs);
               }
           }
-?>               
+?>
       <form id="frmConnexion" action="" method="post">
       <div class="corpsForm">
-        <input type="hidden" name="etape" id="etape" value="validerConnexion" />
+        <input type="hidden" name="etape" id="etape" value="validerConnexion">
       <p>
         <label for="txtLogin" accesskey="n">* Login : </label>
-        <input type="text" id="txtLogin" name="txtLogin" maxlength="20" size="15" value="" title="Entrez votre login" />
+        <input type="text" id="txtLogin" name="txtLogin" maxlength="20" size="15" value="" title="Entrez votre login">
       </p>
       <p>
         <label for="txtMdp" accesskey="m">* Mot de passe : </label>
-        <input type="password" id="txtMdp" name="txtMdp" maxlength="8" size="15" value=""  title="Entrez votre mot de passe"/>
+        <input type="password" id="txtMdp" name="txtMdp" maxlength="8" size="15" value=""  title="Entrez votre mot de passe">
       </p>
       </div>
       <div class="piedForm">
       <p>
-        <input type="submit" id="ok" value="Valider" />
-        <input type="reset" id="annuler" value="Effacer" />
-      </p> 
+        <input type="submit" id="ok" value="Valider">
+        <input type="reset" id="annuler" value="Effacer">
+      </p>
       </div>
       </form>
     </div>

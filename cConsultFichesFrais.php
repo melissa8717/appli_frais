@@ -44,7 +44,7 @@
       <h3>Mois à sélectionner : </h3>
       <form action="" method="post">
       <div class="corpsForm">
-          <input type="hidden" name="etape" value="validerConsult" />
+          <input type="hidden" name="etape" value="validerConsult">
       <p>
         <label for="lstMois">Mois : </label>
         <select id="lstMois" name="lstMois" title="Sélectionnez le mois souhaité pour la fiche de frais">
@@ -69,9 +69,8 @@
       </div>
       <div class="piedForm">
       <p>
-        <input id="ok" type="submit" value="Valider" size="20"
-               title="Demandez à consulter cette fiche de frais" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
+        <input id="ok" type="submit" value="Valider" size="20" title="Demandez à consulter cette fiche de frais">
+        <input id="annuler" type="reset" value="Effacer" size="20">
       </p>
       </div>
 
@@ -127,7 +126,7 @@
                 <?php
             }
             ?>
-        </tr>
+
         <tr>
             <?php
             // second parcours du tableau des frais forfaitisés du visiteur connecté

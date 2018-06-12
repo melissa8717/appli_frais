@@ -15,7 +15,6 @@
   require($repInclude . "_sommaire.inc.php");
   // affectation du mois courant pour la saisie des fiches de frais
   $mois = sprintf("%04d%02d", date("Y"), date("m"));
-  var_dump($mois);
 
   // vérification de l'existence de la fiche de frais pour ce mois courant
   $existeFicheFrais = existeFicheFrais($idConnexion, $mois, obtenirIdUserConnecte());
@@ -87,7 +86,6 @@
             // demande de la requête pour obtenir la liste des éléments
             // forfaitisés du visiteur connecté pour le mois demandé
             $req = obtenirReqEltsForfaitFicheFrais( $mois, obtenirIdUserConnecte());
-            var_dump($mois);
             $idJeuEltsFraisForfait = $idConnexion->query($req);
 
 
@@ -185,7 +183,7 @@
             </p>
             <p>
               <label for="txtLibelleHF">* Libellé : </label>
-              <input type="text" id="txtLibelleHF" name="txtLibelleHF" size="70" maxlength="100"
+              <input type="text" id="txtLibelleHF" name="txtLibelleHF" size="12" maxlength="10"
                     title="Entrez un bref descriptif des frais"
                     value="<?php echo filtrerChainePourNavig($libelleHF); ?>" />
             </p>

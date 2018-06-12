@@ -18,7 +18,9 @@
   if (isset($_POST['txtMarque'])){
     //Fonction de validation / enregistrement
     ajoutVehicule($idConnexion, obtenirIdUserConnecte(), $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance']);
-
+    if (isset($_POST['ok'])){
+    echo 'Véhicule ajouté correctement';
+    }
   }
 
 ?>

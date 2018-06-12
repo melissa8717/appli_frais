@@ -58,7 +58,7 @@ function Header()
 
 
   function LoadData($db, $unId){
-   $requeteForfait=  fraisForfait($db);
+   $requeteForfait=  fraisForfait($db, $unId);
          $calculFrais = 0;
          $data_table = array();
 
