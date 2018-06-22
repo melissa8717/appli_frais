@@ -147,7 +147,8 @@ foreach ($requeteCalcul as $cal) {
   //$calulTotal = $calcul + $calculFrais;
 }
 // Instanciation de la classe dérivée
-$moisF = date('F-Y');
+$moisF = date('F Y');
+//$moisF =sprintf("%04d%02d", date("Y"), date("m"));
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
