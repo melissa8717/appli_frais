@@ -33,22 +33,22 @@
     ?>
 
 <?php
-
+$mois = date('Ym');
 $date = date("d-m-Y ");
 $heure= date('H:i:s');
 $login = lireDonneePost("txtLogin");
-$dossier = '/var/www/html/PPE/upload/'.$idUser."/";
+$dossier = '/var/www/html/PPE/upload/'.$idUser."/".$mois."/";
 $fichier = $_FILES['userfile']['name'].$date.$heure;
 var_dump($_FILES);
 $taille_maxi = 1000000;
 $taille = $_FILES['userfile']['size'];
-$extensions = array('.png', '.gif', '.jpg', '.jpeg','.pdf');
+$extensions = array('.png', '.gif', '.jpg', '.jpeg');
 $extension = strrchr($_FILES['userfile']['name'], '.');
 
 
 	if(!in_array($extension, $extensions))
 	{
-	     $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg, pdf';
+	     $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg';
 	}
 	if($taille>$taille_maxi)
 	{

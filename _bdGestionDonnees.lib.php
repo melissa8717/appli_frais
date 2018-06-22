@@ -473,8 +473,8 @@ function listeVisiteur($idCnx, $unId){
 
 
 
-function fraisAll($idCnx, $unId){
-    $requete ="select * from LigneFraisForfait where LigneFraisForfait.idVisiteur ='". $unId . "'";
+function fraisAll($idCnx, $unId,$mois){
+    $requete ="select * from LigneFraisForfait where LigneFraisForfait.idVisiteur ='". $unId . "' and mois='".$mois."'";
     $result = $idCnx->query($requete);
   if ( $result) {
        $ligne = mysqli_fetch_all($result);
@@ -486,8 +486,8 @@ function fraisAll($idCnx, $unId){
 
 }
 
-function fraisHF($idCnx, $unId){
-    $requeteHF ="select * from  LigneFraisHorsForfait where LigneFraisHorsForfait.idVisiteur ='". $unId . "'";
+function fraisHF($idCnx, $unId,$mois){
+    $requeteHF ="select * from  LigneFraisHorsForfait where LigneFraisHorsForfait.idVisiteur ='". $unId . "' and mois='".$mois."'";
 
     $result = $idCnx->query($requeteHF);
   if ( $result) {
@@ -508,8 +508,8 @@ function infoVisiteur($idCnx, $unId){
   return $ligne;
 }
 
-function fraisForfait($idCnx, $unId){
-  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais where idVisiteur='". $unId . "'";
+function fraisForfait($idCnx, $unId,$mois){
+  $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais where idVisiteur='". $unId . "' and mois='".$mois."'";
   $result = $idCnx->query($requeteForfait);
   if($result){
     $ligne= mysqli_fetch_all($result);
@@ -561,4 +561,10 @@ function calculKM($idCnx, $unId){
       $bareme = 0.401;
   }
   return $bareme;
+}
+
+function contact($idCnx,$nom,$mail,$texte) {
+  $requete = "insert into Contact (nom,mail,texte) values ('"
+            . $nom. "','" . $mail . "', '".$texte."' )";
+  $idCnx->query($requete);
 }

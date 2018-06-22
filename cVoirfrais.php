@@ -45,7 +45,7 @@
                 echo toStringErreurs($tabErreurs);
               }
           }
-$mois = date("m-y");
+$mois = date("Ym");
 ?>
 <div id="contenu">
 <?php $requeteVisiteur= infoVisiteur($idConnexion, $unId);
@@ -65,7 +65,7 @@ foreach ($requeteVisiteur as $value) {
        <tr>
         <td>Type</td><td>Quantité</td><td>Justificatifs</td></tr>
 
-       <?php $requete=  fraisAll($idConnexion, $unId);
+       <?php $requete=  fraisAll($idConnexion, $unId,$mois);
        foreach ($requete as $valeur) { ?>
 
        <tr>
@@ -86,7 +86,7 @@ foreach ($requeteVisiteur as $value) {
        <tr>
         <td>Type</td><td>Montant en €</td><td>Justificatifs</td></tr>
 
-       <?php $requeteHF=  fraisHF($idConnexion, $unId);
+       <?php $requeteHF=  fraisHF($idConnexion, $unId,$mois);
        foreach ($requeteHF as $valeur) { ?>
 
        <tr>

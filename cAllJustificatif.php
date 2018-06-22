@@ -46,6 +46,7 @@
       <div id="imgUpload">
 
 <?php
+$mois = date('Ym');
 if(isset($_GET['id'])){
   $unId = $_GET["id"];
 
@@ -59,7 +60,7 @@ if(isset($_GET['id'])){
 
 
           $nbFichier = 0;
-          $dir = '/var/www/html/PPE/upload/'.$unId."/";
+          $dir = '/var/www/html/PPE/upload/'.$unId."/".$mois."/";
 
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;

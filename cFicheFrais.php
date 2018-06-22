@@ -9,7 +9,8 @@
 
   if(isset($_POST['rembourser'])){
     require('PDF.php');
-    ajouterErreur($tabErreurs, "Le fichier a bien été créé.");
+    echo '<p class="info">La fiche de remboursement a bien été créér</p>';
+    ;
 
 
   }
@@ -37,7 +38,7 @@
 
   $unId = $_GET["id"];
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireComptable.inc.php");
+  require($repInclude . "_sommaireFicheFrais.php");
 
 
 
@@ -54,7 +55,7 @@
                 echo toStringErreurs($tabErreurs);
               }
           }
-$mois = date('m-y');
+$mois = date('Ym');
 ?>
 <div id="contenu">
 <?php $requeteVisiteur=infoVisiteur($idConnexion, $unId);
@@ -65,7 +66,7 @@ foreach ($requeteVisiteur as $value) {
 
 
  ?>
-<?php echo '<h1>'.'Fiche de frais du mois de '.$mois.' pour '.$nom.' '.$prenom.'</h1>';?>
+<?php echo '<h1>'.'Fiche de '.$nom.' '.$prenom.'</h1>';?>
 <h2>Frais forfaitisés</h2>
 
      <table>
@@ -74,7 +75,7 @@ foreach ($requeteVisiteur as $value) {
         <td>Type</td><td>Quantité</td><td>Forfait</td><td>Total ligne</td>
       </tr>
 
-       <?php $requeteForfait=  fraisForfait($idConnexion, $unId);
+       <?php $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
        $calculFrais = 0;
 
        foreach ($requeteForfait as $valeur ) { ?>
@@ -84,7 +85,6 @@ foreach ($requeteVisiteur as $value) {
                              $unIdForfait =$valeur[0];
                              $frais = $valeur[3];
                              $idLigne=$valeur[4];
-                             $mois=$valeur[6];
                              $forfait=$valeur[2];
 
                              if($unIdForfait != 'KM'){
@@ -101,7 +101,7 @@ foreach ($requeteVisiteur as $value) {
          <td><?php echo $unIdForfait ; ?></td><td><?php echo $frais ; ?></td><td><?php echo $forfait;?></td><td><?php echo $total_ligne;?></td>
      </tr>
      <?php
-            $calculFrais = $calculFrais + $total_ligne.' €';
+            $calculFrais = $calculFrais + $total_ligne;
      }
 
      ?>
@@ -117,13 +117,16 @@ foreach ($requeteVisiteur as $value) {
         <td>Type</td><td>Montant</td></tr>
 
 
-       <?php $requeteHF=  fraisHF($idConnexion, $unId);
+       <?php $requeteHF=  fraisHF($idConnexion, $unId,$mois);
+
+
        foreach ($requeteHF as $valeur) { ?>
 
        <tr>
          <?php
                              $fraisHF = $valeur[3];
                              $montantFHF = $valeur[4];
+                             $mois= $valeur[2];
 
            ?>
          <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF.' €' ; ?></td>

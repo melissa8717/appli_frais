@@ -1,12 +1,13 @@
 <?php
     require_once('_bdGestionDonnees.lib.php');
     $db = connecterServeurBD();
+    $mois = date('Ym');
 
     require('/fpdf181/fpdf.php');
 
 
-    function fraisForfaitPdf($db){
-      $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais";
+    function fraisForfaitPdf($db,$moisD){
+      $requeteForfait = "select * from FraisForfait inner join LigneFraisForfait on LigneFraisForfait.idFraisForfait =  FraisForfait.idFrais where mois='".$moisD."'";
 
       $result = $db->query($requeteForfait);
       if($result){
@@ -18,7 +19,7 @@
 
 
 $unId = $_GET["id"];
-$mois = date('m-y');
+
 $requeteVisiteur=infoVisiteur($db, $unId);
   foreach ($requeteVisiteur as $value) {
   $nom=$value[0];
@@ -57,8 +58,8 @@ function Header()
   }
 
 
-  function LoadData($db, $unId){
-   $requeteForfait=  fraisForfait($db, $unId);
+  function LoadData($db, $unId,$mois){
+   $requeteForfait=  fraisForfait($db, $unId,$mois);
          $calculFrais = 0;
          $data_table = array();
 
@@ -67,7 +68,6 @@ function Header()
             $data_table[$compteur_frais]['unIdForfait'] =$valeur[0];
             $data_table[$compteur_frais]['forfait']=$valeur[2];
             $data_table[$compteur_frais]['frais'] = $valeur[3];
-            $mois=$valeur[6];
             if($data_table[$compteur_frais]['unIdForfait'] != 'KM'){
               $data_table[$compteur_frais]['total_ligne'] = $data_table[$compteur_frais]['forfait'] * $data_table[$compteur_frais]['frais'];
 
@@ -89,9 +89,9 @@ function Header()
 
 
 
-    function LoadHF($db,$unId){
+    function LoadHF($db,$unId,$mois){
 
-          $requeteHF=  fraisHF($db, $unId);
+          $requeteHF=  fraisHF($db, $unId,$mois);
           $table=array();
           $compteurHF=0;
              foreach ($requeteHF as $valeurHF) {
@@ -147,19 +147,21 @@ foreach ($requeteCalcul as $cal) {
   //$calulTotal = $calcul + $calculFrais;
 }
 // Instanciation de la classe dérivée
+$moisF = date('F-Y');
+
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',18);
-$pdf->Cell(0,10,'Fiche de frais du mois de '.$mois. ' de '.$nom.' '.$prenom,2,0,'C');
+$pdf->Cell(0,10,'Fiche de frais du mois de '.$moisF. ' de '.$nom.' '.$prenom,2,0,'C');
 $pdf->Ln(20);
 $pdf->SetFont('Times','B',14);
 $pdf->Cell(0,10,utf8_decode('FRAIS FORFATISÉS'),2,0,'C');
 $pdf->SetFont('Times','',12);
 $pdf->Ln(20);
 
-$header=array('Type',utf8_decode('Quantité'),'Forfait','Total ligne');
-$valeur = $pdf->LoadData($db, $unId);
+$header=array('Type',utf8_decode('Quantité'),'Forfait','Total ligne en euros');
+$valeur = $pdf->LoadData($db, $unId,$mois);
 $last_ligne = end($valeur);
 $total = $last_ligne['calculFrais'];
 $pdf->BasicTable($header, $valeur);
@@ -171,7 +173,7 @@ $pdf->Cell(0,10,'FRAIS HORS FORFAIT',2,0,'C');
 $pdf->Ln(20);
 $pdf->SetFont('Times','',12);
 $header1= array('Type', 'Montant en euros');
-$valeurHF = $pdf->LoadHF($db, $unId);
+$valeurHF = $pdf->LoadHF($db, $unId,$mois);
 $pdf->BasicTable1($header1, $valeurHF);
 $pdf->Ln(20);
 $pdf->Cell(0,10,'Total : '. $calcul.' euros ',1);
@@ -181,11 +183,12 @@ $totalAll = $total+$calcul;
 
 $pdf->Cell(0,10,'Total : '. $totalAll.' euros ',1);
 
-$dossierPDF= '/var/www/html/PPE/PDF_Fiche_Frais/'.$unId.'';
+$dossierPDF= '/var/www/html/PPE/PDF_Fiche_Frais/'.$mois."/".$unId."/";
+
 if(is_dir($dossierPDF) == FALSE) {
  mkdir($dossierPDF, 0777, true);
 }
-$dossier = '/var/www/html/PPE/PDF_Fiche_Frais/'.$unId."/";
+$dossier = '/var/www/html/PPE/PDF_Fiche_Frais/'.$mois."/".$unId."/";
 $pdf->output($dossier.$nom.$prenom.' '.$mois.' Fiche de remboursement.pdf', 'F');
 
 

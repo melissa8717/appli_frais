@@ -39,7 +39,7 @@
            <li class="smenu">
               <a href="../cValideFrais.php" title="Voir tous les visiteurs">Voir tous les visiteurs</a>
            </li>
-          
+
 
          </ul>
         <?php

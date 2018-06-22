@@ -36,8 +36,8 @@
   }
 
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireComptable.inc.php");
-  $unId = $_GET["id"];
+  require($repInclude . "_sommaireValide.php");
+  //$unId = $_GET["id"];
 
 ?>
 
@@ -62,7 +62,7 @@
 
       <?php
 
-$req= listeVisiteur($idConnexion, $nom, $prenom, $unId);
+$req= listeVisiteur($idConnexion, $nom, $prenom);
 
 
 	  foreach ( $req as $value )  { ?>

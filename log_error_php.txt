@@ -1437,3 +1437,7 @@ Stack trace:
 [12-Jun-2018 15:23:38 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
 [12-Jun-2018 15:23:45 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
 [12-Jun-2018 15:23:50 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[12-Jun-2018 15:40:59 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[19-Jun-2018 14:09:30 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[22-Jun-2018 15:02:11 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/PPE/cValideFrais.php on line 40
+[22-Jun-2018 15:02:32 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/PPE/cValideFrais.php on line 65

@@ -43,7 +43,8 @@
   <div id="contenu">
       <h2>Mes fiches de remboursement</h2>
     <?php  $nbFichier = 0;
-      $dir = '/var/www/html/PPE/PDF_Fiche_Frais/'.$unId;
+    $mois = date('Ym');
+      $dir = '/var/www/html/PPE/PDF_Fiche_Frais/'.$mois."/".$unId;
     if($dossier = opendir($dir)){
         $path = $_SERVER['SERVER_NAME'] ;
         $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $dir);
