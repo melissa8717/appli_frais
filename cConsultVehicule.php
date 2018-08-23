@@ -51,9 +51,9 @@
     <tr>
 
       <?php
-        $marque=$vehi[1];
-        $modele=$vehi[2];
-        $puissance=$vehi[3];
+        $marque=$vehi[2];
+        $modele=$vehi[3];
+        $puissance=$vehi[4];
 
        ?>
 

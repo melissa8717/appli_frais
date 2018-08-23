@@ -358,7 +358,7 @@ function hashAllMDP($idCnx){
   foreach ($mot_passe as $key => $value_mdp){
     if (strlen($value_mdp) < 60) {
       $hash = hashMDP($value_mdp);
-      $req_update = 'UPDATE Visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
+      $req_update = 'UPDATE visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
       $idCnx->query($req_update);
     }
   }
@@ -370,11 +370,10 @@ function hashMDP($unMdp){
 }
 
 
-
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
-    $req = "select id, nom, prenom, login, mdp from Visiteur where  login='".$unLogin."' and mdp='.'";
+    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."' and mdp='.'";
     var_dump($req);
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
@@ -446,9 +445,12 @@ function  obtenirInfoVH($idCnx, $unId){
         $requete = "select * FROM Vehicule WHERE idVisiteur = '" . $unId .  "'";
 
             $result = $idCnx->query($requete);
+          if ( $result) {
+               $ligne = mysqli_fetch_all($result);
+            }
 
 
-            return $result;
+            return $ligne;
 }
 
 function modifVH($idCnx, $marque, $modele, $puissance, $unIdVisiteur){
@@ -459,7 +461,7 @@ $idCnx->query($requeteMVH);
 }
 
 function listeVisiteur($idCnx, $unId){
-    $req ="select nom, prenom, id, telephone from Visiteur";
+    $req ="select nom, prenom, id, telephone from visiteur";
     $result = $idCnx->query($req);
   if ( $result) {
        $ligne = mysqli_fetch_all($result);
