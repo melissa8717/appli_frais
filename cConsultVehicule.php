@@ -35,7 +35,8 @@
   $requete=obtenirInfoVH($idConnexion, $unId);
 
   if($_POST){
-  modifVH($idConnexion, $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance'], $unId);
+    $requeteMVH=  modifVH($idConnexion, $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance'], $unId);
+    header("Location:../cConsultVehicule.php/?id=$unId");
   }
 
 ?>
