@@ -38,6 +38,10 @@
     $requeteMVH=  modifVH($idConnexion, $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance'], $unId);
     header("Location:../cConsultVehicule.php/?id=$unId");
   }
+  else{
+  
+      header("Location:../cVehicule.php/?id=$unId");
+  }
 
 ?>
 <div id="contenu" >

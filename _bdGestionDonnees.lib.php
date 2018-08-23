@@ -15,7 +15,7 @@
  * @return resource identifiant de connexion
  */
  function connecterServeurBD() {
-     $hote = "127.0.0.1";
+     $hote = "localhost";
      $login = "root";
      $mdp = '';
      return new  mysqli($hote, $login, $mdp,"appli_frais");
@@ -373,7 +373,7 @@ function hashMDP($unMdp){
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
-    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."' and mdp='.'";
+    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."' and mdp='".$unMdp."'";
     var_dump($req);
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
@@ -382,7 +382,7 @@ function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
         $idJeuRes->free_result();
     }
     // on vérifie le mot de passe
-    if(password_verify($unMdp, $ligne['mdp'])){
+    if($unMdp == $ligne['mdp']){
       return $ligne;
     }
     else {
@@ -403,7 +403,7 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
         $idJeuRes->free_result();
 
       // on vérifie le mot de passe
-      if(password_verify($unMdp, $ligne['mdp'])){
+      if($unMdp == $ligne['mdp']){
         return $ligne;
       }
       else {

@@ -38,6 +38,7 @@
            <li class="smenu">
               <a href="cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
            </li>
+        
            <li class="smenu">
               <?php echo'<a href="cConsultVehicule.php/?id='.$idUser.'"';?>  title="Consultation de mon véhicule">Mon véhicule</a>
            </li>

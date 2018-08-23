@@ -17,11 +17,11 @@
       var_dump($login);
       $mdp = lireDonneePost("txtMdp");
       var_dump($mdp);
-      $lgUser = verifierInfosConnexion($idConnexion, $unLogin, $unMdp) ;
+      $lgUser = verifierInfosConnexion($idConnexion, $login, $mdp) ;
       var_dump($idConnexion);
       var_dump($mdp);
         var_dump($login);
-        var_dump(verifierInfosConnexion($idConnexion, $unLogin, $unMdp));
+        var_dump(verifierInfosConnexion($idConnexion, $login, $mdp));
       var_dump($lgUser);
       // si l'id utilisateur a été trouvé, donc informations fournies sous forme de tableau
       if ( is_array($lgUser) ) {

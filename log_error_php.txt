@@ -1441,3 +1441,9 @@ Stack trace:
 [19-Jun-2018 14:09:30 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/appli_frais/cValideFrais.php on line 40
 [22-Jun-2018 15:02:11 Europe/Berlin] PHP Notice:  Undefined index: id in /var/www/html/appli_frais/cValideFrais.php on line 40
 [22-Jun-2018 15:02:32 Europe/Berlin] PHP Notice:  Undefined variable: unId in /var/www/html/appli_frais/cValideFrais.php on line 65
+[23-Aug-2018 16:30:43 UTC] PHP Warning:  require(./include/_sommaireValide.php): failed to open stream: No such file or directory in C:\wamp64\www\appli_frais\cValideFrais.php on line 39
+[23-Aug-2018 16:30:43 UTC] PHP Stack trace:
+[23-Aug-2018 16:30:43 UTC] PHP   1. {main}() C:\wamp64\www\appli_frais\cValideFrais.php:0
+[23-Aug-2018 16:30:43 UTC] PHP Fatal error:  require(): Failed opening required './include/_sommaireValide.php' (include_path='.;C:\php\pear') in C:\wamp64\www\appli_frais\cValideFrais.php on line 39
+[23-Aug-2018 16:30:43 UTC] PHP Stack trace:
+[23-Aug-2018 16:30:43 UTC] PHP   1. {main}() C:\wamp64\www\appli_frais\cValideFrais.php:0
