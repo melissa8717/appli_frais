@@ -31,7 +31,7 @@
      $file_to_delete = $_GET['delete'];
      unlink($file_to_delete);
      $id=$_GET['id'];
-     header("Location:/PPE/cVoirfrais.php/?id=$id");
+     header("Location:/appli_frais/cVoirfrais.php/?id=$id");
   }
   $unId = $_GET["id"];
 
@@ -60,7 +60,7 @@ if(isset($_GET['id'])){
 
 
           $nbFichier = 0;
-          $dir = '/var/www/html/PPE/upload/'.$unId."/".$mois."/";
+          $dir = '/var/www/html/appli_frais/upload/'.$unId."/".$mois."/";
 
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;

@@ -86,13 +86,13 @@
             // demande de la requête pour obtenir la liste des éléments
             // forfaitisés du visiteur connecté pour le mois demandé
             $req = obtenirReqEltsForfaitFicheFrais( $mois, obtenirIdUserConnecte());
-            $idJeuEltsFraisForfait = $idConnexion->query($req);
+            $idJeuEltsFraisForfait = mysqli_query($idConnexion,$req);
 
 
-            $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();
+            $lgEltForfait = mysqli_fetch_assoc($idJeuEltsFraisForfait);
             if(!is_array($lgEltForfait)){
                $req = obtenirReqTypeFrais();
-               $idJeuEltsFraisForfait = $idConnexion->query($req);
+               $idJeuEltsFraisForfait = mysql_query($idConnexion,$req);
 
 
                $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();

@@ -28,7 +28,7 @@
   }
 
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireVehicule.php");
+  require($repInclude . "_sommaire.inc.php");
 
 
   $unId = $_GET["id"];

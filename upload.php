@@ -37,7 +37,7 @@ $mois = date('Ym');
 $date = date("d-m-Y ");
 $heure= date('H:i:s');
 $login = lireDonneePost("txtLogin");
-$dossier = '/var/www/html/PPE/upload/'.$idUser."/".$mois."/";
+$dossier = '/var/www/html/appli_frais/upload/'.$idUser."/".$mois."/";
 $fichier = $_FILES['userfile']['name'].$date.$heure;
 var_dump($_FILES);
 $taille_maxi = 1000000;

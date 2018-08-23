@@ -14,28 +14,28 @@
  * si problème de connexion.
  * @return resource identifiant de connexion
  */
-function connecterServeurBD() {
-    $hote = "127.0.0.1";
-    $login = "user";
-    $mdp = 'chatons';
-    return new  mysqli($hote, $login, $mdp,"test");
-}
+ function connecterServeurBD() {
+     $hote = "127.0.0.1";
+     $login = "root";
+     $mdp = '';
+     return new  mysqli($hote, $login, $mdp,"appli_frais");
+ }
+ /**
+  * Sélectionne (rend active) la base de données.
+  * Sélectionne (rend active) la BD prédéfinie gsb_frais sur la connexion
+  * identifiée par $idCnx. Retourne true si succès, false sinon.
+  * @param resource $idCnx identifiant de connexion
+  * @return boolean succès ou échec de sélection BD
+  */
+ function activerBD($idCnx) {
+     $bd = "appli_frais";
+     $query = "SET CHARACTER SET utf8";
+     // Modification du jeu de caractères de la connexion
+     $res = $idCnx-> query($query );
+     $ok = $idCnx-> select_db($bd);
+     return $ok;
+ }
 
-/**
- * Sélectionne (rend active) la base de données.
- * Sélectionne (rend active) la BD prédéfinie gsb_frais sur la connexion
- * identifiée par $idCnx. Retourne true si succès, false sinon.
- * @param resource $idCnx identifiant de connexion
- * @return boolean succès ou échec de sélection BD
- */
-function activerBD($idCnx) {
-    $bd = "test";
-    $query = "SET CHARACTER SET utf8";
-    // Modification du jeu de caractères de la connexion
-    $res = $idCnx-> query($query );
-    $ok = $idCnx-> select_db($bd);
-    return $ok;
-}
 
 /**
  * Ferme la connexion au serveur de données.
@@ -78,7 +78,7 @@ function filtrerChainePourBD($str) {
  */
 function obtenirDetailVisiteur($idCnx, $unId) {
     $id = filtrerChainePourBD($unId);
-    $requete = "select id, nom, prenom from Visiteur where id='" . $unId . "'";
+    $requete = "select id, nom, prenom from visiteur where id='" . $unId . "'";
 
     $idJeuRes = $idCnx->query($requete);
     $ligne = false;
@@ -374,7 +374,8 @@ function hashMDP($unMdp){
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
-    $req = "select id, nom, prenom, login, mdp from Visiteur where  login='".$unLogin."'";
+    $req = "select id, nom, prenom, login, mdp from Visiteur where  login='".$unLogin."' and mdp='.'";
+    var_dump($req);
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
     if ( $idJeuRes ) {
@@ -445,12 +446,9 @@ function  obtenirInfoVH($idCnx, $unId){
         $requete = "select * FROM Vehicule WHERE idVisiteur = '" . $unId .  "'";
 
             $result = $idCnx->query($requete);
-          if ( $result) {
-               $ligne = mysqli_fetch_all($result);
-            }
 
 
-            return $ligne;
+            return $result;
 }
 
 function modifVH($idCnx, $marque, $modele, $puissance, $unIdVisiteur){
