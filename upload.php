@@ -16,15 +16,22 @@
 
 
 
-  require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaire.inc.php");
+    require($repInclude . "_entete.inc.html");
+    require($repInclude . "_sommaire.inc.php");
+    $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi);
+    $idJeuEltsHorsForfait = $idConnexion->query($req);
+    $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
+    $idFraisHF = $lgEltHorsForfait["id"];
+    var_dump($idFraisHF);
 ?>
   <!-- Division principale -->
  <?php
       if (estVisiteurConnecte() ) {
           $idUser = obtenirIdUserConnecte() ;
+          var_dump($idUser);
           $lgUser = obtenirDetailVisiteur($idConnexion, $idUser);
           $nom = $lgUser['nom'];
+          var_dump($nom);
           $nomU= $lgUser['nom']."/".$prenom."/";
           $prenom = $lgUser['prenom'];
 
@@ -33,13 +40,16 @@
     ?>
 
 <?php
+$idHF= $_GET['id'];
+var_dump($idHF);
 $mois = date('Ym');
+var_dump($mois);
 $date = date("d-m-Y ");
 $heure= date('H:i:s');
 $login = lireDonneePost("txtLogin");
-$dossier = '/var/www/html/appli_frais/upload/'.$idUser."/".$mois."/";
+$dossier_visiteur = 'C:\wamp64\www\appli_frais\upload'.$idUser."/".$mois."/".$idHF"/";
+var_dump($dossier_visiteur);
 $fichier = $_FILES['userfile']['name'].$date.$heure;
-var_dump($_FILES);
 $taille_maxi = 1000000;
 $taille = $_FILES['userfile']['size'];
 $extensions = array('.png', '.gif', '.jpg', '.jpeg');
@@ -59,7 +69,6 @@ $fichier = strtr($fichier,
 		  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
 		  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-$dossier_visiteur = $dossier;
 
 
 

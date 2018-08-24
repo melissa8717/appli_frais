@@ -16,20 +16,16 @@
   require($repInclude . "_sommaire.inc.php");
 ?>
   <!-- Division principale -->
-  <div id="contenu">
+  <div id="contenuAccueil">
       <h1>Bienvenue sur l'intranet GSB</h1>
-      <div id="blockAccueil" >
-        <a href="cVehicule.php">
-        <h2 >Véhicule</h2>
-        <img src="images/car.png" style="padding-left: 50px;padding-top: 10px;"></a>
-      </div>
-      <div id="blockAccueil2">
-       <a href="cGed.php">
-        <h2>GED</h2>
-        <img src="images/doc.png" style="padding-left: 60px;padding-top: 15px;"></a>
+      <h3>Dans cet espace vous pouvez enrgistrer, consulter et modifier toutes vos fiches de frais,
+      qu'elles soient en forfait ou en hors forfait.<br />
+      Utilisez simplement le menu situé à gauche.
+      <div style="height:500px;"><img src="images/comm.jpg"  /></div>
 
-      </div>
+    </h3>
   </div>
+
 <?php
   require($repInclude . "_pied.inc.html");
   require($repInclude . "_fin.inc.php");

@@ -146,6 +146,7 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class="montant">Montant</th>
+                <th>Justificatifs</th>
              </tr>
 <?php
             // demande de la requête pour obtenir la liste des éléments hors
@@ -153,6 +154,7 @@
             $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, obtenirIdUserConnecte());
             $idJeuEltsHorsForfait = $idConnexion->query($req);
             $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
+            $idFraisHF = $lgEltHorsForfait["id"];
 			if(isset($lgEltHorsForfait)){
 
 				// parcours des éléments hors forfait
@@ -162,6 +164,7 @@
 					   <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
 					   <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
 					   <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
+             <?php echo"".'<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';?>
 					</tr>
 				<?php
 					$lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();

@@ -69,6 +69,21 @@ body{
 */
   height:27em;
 }
+#contenuAccueil{
+  border: none;
+  padding: 1.3em;
+  background-color: white;
+
+  margin-top : 1.2em;
+  margin-left: 18%;
+}
+#contenuAccueil h1{
+  text-align: center;
+}
+#contenuAccueil img {
+  margin-left: 10%;
+  margin-top: 10%;
+}
 
 /* pour r�tablir le mauvais effet sur les nav. modernes */
 html>body #contenu{

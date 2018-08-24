@@ -350,20 +350,24 @@ function modifierEltsForfait($idCnx, $unMois, $unIdVisiteur, $desEltsForfait) {
  */
 
 function hashAllMDP($idCnx){
-	$req ="SELECT mdp FROM Visiteur";
+	$req ="SELECT mdp FROM visiteur";
   $results = $idCnx->query($req);
   while($mdp = $results->fetch_assoc()){
     $mot_passe[] = $mdp['mdp'];
+
   }
   foreach ($mot_passe as $key => $value_mdp){
     if (strlen($value_mdp) < 60) {
       $hash = hashMDP($value_mdp);
       $req_update = 'UPDATE visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
-      $idCnx->query($req_update);
+     $idCnx->query($req_update);
+          return $req_update;
+
+
     }
   }
-}
 
+}
 function hashMDP($unMdp){
     $hash = password_hash($unMdp, PASSWORD_DEFAULT);
     return $hash;

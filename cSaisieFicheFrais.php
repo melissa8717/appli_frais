@@ -192,6 +192,7 @@
               <input type="text" id="txtMontantHF" name="txtMontantHF" size="12" maxlength="10"
                      title="Entrez le montant des frais (le point est le séparateur décimal)" value="<?php echo $montantHF; ?>" />
             </p>
+        
           </fieldset>
       </div>
       <div class="piedForm">
@@ -200,6 +201,7 @@
                title="Ajouter la nouvelle ligne hors forfait" />
         <input id="effacer" type="reset" value="Effacer" size="20" />
       </p>
+
       </div>
 
       </form>
