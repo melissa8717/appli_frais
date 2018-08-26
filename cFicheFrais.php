@@ -38,7 +38,7 @@
 
   $unId = $_GET["id"];
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireFicheFrais.php");
+  require($repInclude . "_sommaireComptable.inc.php");
 
 
 
@@ -83,8 +83,8 @@ foreach ($requeteVisiteur as $value) {
        <tr>
          <?php
                              $unIdForfait =$valeur[0];
-                             $frais = $valeur[3];
-                             $idLigne=$valeur[4];
+                             $frais = $valeur[6];
+                             $idLigne=$valeur[2];
                              $forfait=$valeur[2];
 
                              if($unIdForfait != 'KM'){
@@ -135,11 +135,15 @@ foreach ($requeteVisiteur as $value) {
      <?php
            }
 
-          $requeteCalcul = calculfraisHF($idConnexion, $unId);
+          $requeteCalcul = calculfraisHF($idConnexion, $unId,$mois);
+          if (is_array($requeteCalcul) || is_object($requeteCalcul))
+{
+
           foreach ($requeteCalcul as $cal) {
             $calcul=$cal[0];
             $calulTotal = $calcul + $calculFrais;
-          } ?>
+          }
+        } ?>
 
           <tr>
             <td><h3>Total</h3></td><td><h3><?php echo $calcul.' €';?></h3></td>
@@ -154,23 +158,20 @@ foreach ($requeteVisiteur as $value) {
  <form id="" action="" method="post">
     <div >
       <input type="hidden" name="etape" id="etape" value="validerConnexion" />
-    <p>
-      <label for="txtNbrJustificatif" >Nombre de justificatifs validés :</label>
-      <input type="text" id="txtNbrJustificatif" name="txtNbrJustificatif"  />
-    </p>
+ <br />
 <?php   if (isset($_POST['valider'])){
     //Fonction de validation / enregistrement
-    modifierEtatFicheFrais($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+    modifierEtatFicheFrais($idConnexion,$unId,$calulTotal );
   } ?>
     <input type="submit" id="ok" value="Mise en paiement" name="valider"/>
     <?php   if (isset($_POST['refus'])){
         //Fonction de validation / enregistrement
-        modifierEtatRefus($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+        modifierEtatRefus($idConnexion,$unId, $calulTotal );
       } ?>
     <input type="submit" id="refus" value="Refuser" name="refus"/>
     <?php   if (isset($_POST['rembourser'])){
         //Fonction de validation / enregistrement
-        modifierEtatRB($idConnexion,$unId, $_POST['txtNbrJustificatif'],$calulTotal );
+        modifierEtatRB($idConnexion,$unId, $calulTotal );
         echo 'Fiche de remboursement créée';
 
       } ?>

@@ -36,7 +36,7 @@
   }
 
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireValide.php");
+  require($repInclude . "_sommaireComptable.inc.php");
   //$unId = $_GET["id"];
 
 ?>
@@ -61,11 +61,15 @@
          <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs</td></tr>
 
       <?php
+	  
 
-$req= listeVisiteur($idConnexion, $nom, $prenom);
 
 
-	  foreach ( $req as $value )  { ?>
+$req= listeVisiteur($idConnexion, $lgUser["id"]);
+
+
+	  foreach ( $req as $value )  {
+      ?>
          <tr>
 <?php
                     $nom = $value[0];

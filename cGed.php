@@ -27,8 +27,8 @@
 
       Transfèrer le fichier<br /><br /><br />
       <input type="hidden" name="id" value="<?php echo $idHF;?>" />
-       <input type="file" name="userfile" value="justificatif" /><br /><br />
-      <input type="submit"  />
+       <input type="file" name="userfile" value="userfile" /><br /><br />
+      <input type="submit"  value="Valider" />
     </form>
 
   </div>

@@ -429,8 +429,8 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
  * @param string $unMois mois sous la forme aaaamm
  * @return void
  */
-function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $nbrJustficatif, $calculTotal) {
-    $requete = "update fichefrais set idEtat = 'VA', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calculTotal."' where idVisiteur ='" .
+function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $calculTotal) {
+    $requete = "update fichefrais set idEtat = 'VA', dateModif = now(),  montantValide = '".$calculTotal."' where idVisiteur ='" .
                $unIdVisiteur . "'";
     $idCnx->query($requete);
 }
@@ -469,10 +469,9 @@ function listeVisiteur($idCnx, $unId){
     $result = $idCnx->query($req);
   if ( $result) {
        $ligne = mysqli_fetch_all($result);
+
     }
-
-
-    return $ligne;
+      return $ligne;
 }
 
 
@@ -504,7 +503,7 @@ function fraisHF($idCnx, $unId,$mois){
 
 }
 function infoVisiteur($idCnx, $unId){
-    $requeteVisiteur = "select nom, prenom, id from Visiteur where id='". $unId . "'";
+    $requeteVisiteur = "select nom, prenom, id from visiteur where id='". $unId . "'";
   $result = $idCnx->query($requeteVisiteur);
   if($result){
     $ligne = mysqli_fetch_all($result);
@@ -521,8 +520,9 @@ function fraisForfait($idCnx, $unId,$mois){
   return $ligne;
 }
 
-function calculfraisHF($idCnx, $unId){
-  $requeteCalcul ="select sum(montant) from LigneFraisHorsForfait where idVisiteur='". $unId . "'";
+function calculfraisHF($idCnx, $unId, $unMois){
+    $unMois = filtrerChainePourBD( $unMois);
+  $requeteCalcul ="select sum(montant) from LigneFraisHorsForfait where idVisiteur='". $unId . "' and mois ='". $unMois . "'";
   $result=$idCnx->query($requeteCalcul);
   if($result){
     $ligne=mysqli_fetch_all($result);
@@ -530,8 +530,8 @@ function calculfraisHF($idCnx, $unId){
   return $ligne;
 }
 
-function modifierEtatRefus($idCnx,$unIdVisiteur, $nbrJustficatif, $calulTotal) {
-    $requete = "update fichefrais set idEtat = 'RE', dateModif = now(), nbJustificatifs ='".$nbrJustficatif."', montantValide = '".$calulTotal."' where idVisiteur ='" .
+function modifierEtatRefus($idCnx,$unIdVisiteur, $calulTotal) {
+    $requete = "update fichefrais set idEtat = 'RE', dateModif = now(),  montantValide = '".$calulTotal."' where idVisiteur ='" .
                $unIdVisiteur . "'";
     $idCnx->query($requete);
 }

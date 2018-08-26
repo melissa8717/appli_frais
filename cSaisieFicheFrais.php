@@ -149,6 +149,7 @@
           // demande de la requête pour obtenir la liste des éléments hors
           // forfait du visiteur connecté pour le mois demandé
           $req = obtenirReqEltsHorsForfaitFicheFrais($mois, obtenirIdUserConnecte());
+
           $idJeuEltsHorsForfait = $idConnexion->query($req);
           $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
 
@@ -162,13 +163,35 @@
                 <td><a href="?etape=validerSuppressionLigneHF&amp;idLigneHF=<?php echo $lgEltHorsForfait["id"]; ?>"
                        onclick="return confirm('Voulez-vous vraiment supprimer cette ligne de frais hors forfait ?');"
                        title="Supprimer la ligne de frais hors forfait">Supprimer</a></td>
-              </tr>
+              <?php
+              $lgEltHorsForfait["montant"] = array();
+              $montant += (int)$lgEltHorsForfait["montant"];
+              var_dump($montant);
+
+
+   }
+               ?></tr>
+
           <?php
               $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
-          }
-          $idJeuEltsHorsForfait->free_result();
-?>
+
+          $idJeuEltsHorsForfait->free_result();?>
+
+          <table>
+            <tr>
+
+
+          <?php
+
+            ?>
+          </tr>
+          </table>
+
+
+
     </table>
+    <tr>
+    </tr>
       <form action="" method="post">
       <div class="corpsForm">
           <input type="hidden" name="etape" value="validerAjoutLigneHF" />
@@ -192,8 +215,10 @@
               <input type="text" id="txtMontantHF" name="txtMontantHF" size="12" maxlength="10"
                      title="Entrez le montant des frais (le point est le séparateur décimal)" value="<?php echo $montantHF; ?>" />
             </p>
-        
+
+
           </fieldset>
+
       </div>
       <div class="piedForm">
       <p>

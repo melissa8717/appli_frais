@@ -18,42 +18,32 @@
 
     require($repInclude . "_entete.inc.html");
     require($repInclude . "_sommaire.inc.php");
-    $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi);
-    $idJeuEltsHorsForfait = $idConnexion->query($req);
-    $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
-    $idFraisHF = $lgEltHorsForfait["id"];
-    var_dump($idFraisHF);
-?>
-  <!-- Division principale -->
- <?php
+
+
       if (estVisiteurConnecte() ) {
           $idUser = obtenirIdUserConnecte() ;
-          var_dump($idUser);
           $lgUser = obtenirDetailVisiteur($idConnexion, $idUser);
           $nom = $lgUser['nom'];
-          var_dump($nom);
           $nomU= $lgUser['nom']."/".$prenom."/";
           $prenom = $lgUser['prenom'];
 
 		}
 
-    ?>
 
-<?php
 $idHF= $_GET['id'];
 var_dump($idHF);
 $mois = date('Ym');
-var_dump($mois);
 $date = date("d-m-Y ");
 $heure= date('H:i:s');
 $login = lireDonneePost("txtLogin");
-$dossier_visiteur = 'C:\wamp64\www\appli_frais\upload'.$idUser."/".$mois."/".$idHF"/";
-var_dump($dossier_visiteur);
+$dossier_visiteur = 'C:/wamp64/www/appli_frais/upload/'.$idUser."/".$mois."/";
 $fichier = $_FILES['userfile']['name'].$date.$heure;
 $taille_maxi = 1000000;
 $taille = $_FILES['userfile']['size'];
+var_dump( $_FILES['userfile']);
 $extensions = array('.png', '.gif', '.jpg', '.jpeg');
 $extension = strrchr($_FILES['userfile']['name'], '.');
+var_dump($extension);
 
 
 	if(!in_array($extension, $extensions))
@@ -65,6 +55,9 @@ $extension = strrchr($_FILES['userfile']['name'], '.');
 	     $erreur = 'Le fichier est trop gros...';
 	}
 if(!isset($erreur)){
+  header('Location: cJustificatif.php');
+
+
 $fichier = strtr($fichier,
 		  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
 		  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
@@ -77,9 +70,12 @@ if(is_dir($dossier_visiteur) == FALSE) {
 
 
 }
+
+header('Location: cJustificatif.php');
+
 	    if(move_uploaded_file($_FILES['userfile']['tmp_name'], $dossier_visiteur.$fichier)) {
         $_SESSION['url']=$dossier_visiteur.$fichier;
-
+        print'$fichier';
         header('Location: cJustificatif.php');
         }
 	     else
@@ -89,8 +85,7 @@ if(is_dir($dossier_visiteur) == FALSE) {
   }
 
 
-?>
-<?php
+
   require($repInclude . "_pied.inc.html");
   require($repInclude . "_fin.inc.php");
 ?>
