@@ -33,12 +33,16 @@
            <li class="smenu">
               <a href="../cValideFrais.php" title="Page d'accueil">Accueil</a>
            </li>
+		   <li class="smenu">
+              <a href="../cValideFrais.php" title="Voir tous les visiteurs">Voir tous les visiteurs</a>
+           </li>
+		   <li class="smenu">
+              <a href="../cConsultFrais.php" title="Voir tous les visiteurs">Voir les forfaits des frais</a>
+           </li>
            <li class="smenu">
               <a href="../cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
            </li>
-           <li class="smenu">
-              <a href="../cValideFrais.php" title="Voir tous les visiteurs">Voir tous les visiteurs</a>
-           </li>
+           
 
 
          </ul>

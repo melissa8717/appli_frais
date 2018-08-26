@@ -8,7 +8,7 @@
   require($repInclude . "_init.inc.php");
 
   if(isset($_POST['rembourser'])){
-    require('PDF.php');
+    require('pdf.php');
     echo '<p class="info">La fiche de remboursement a bien été créér</p>';
     ;
 
@@ -171,7 +171,7 @@ foreach ($requeteVisiteur as $value) {
     <input type="submit" id="refus" value="Refuser" name="refus"/>
     <?php   if (isset($_POST['rembourser'])){
         //Fonction de validation / enregistrement
-        modifierEtatRB($idConnexion,$unId, $calulTotal );
+        modifierEtatRB($idConnexion,$unId,$calulTotal );
         echo 'Fiche de remboursement créée';
 
       } ?>

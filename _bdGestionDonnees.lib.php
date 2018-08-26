@@ -572,3 +572,12 @@ function contact($idCnx,$nom,$mail,$texte) {
             . $nom. "','" . $mail . "', '".$texte."' )";
   $idCnx->query($requete);
 }
+
+function listeFrais($idCnx){
+	$requeteFrais ="SELECT * FROM fraisforfait";
+	 $result=$idCnx->query($requeteFrais);
+  if($result){
+    $ligne=mysqli_fetch_all($result);
+  }
+  return $ligne;
+}
