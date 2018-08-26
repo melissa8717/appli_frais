@@ -8,7 +8,8 @@
   require($repInclude . "_init.inc.php");
 
   if(isset($_POST['rembourser'])){
-    require('pdf.php');
+	  var_dump($_POST['rembourser']);
+    require('PHP.php');
     echo '<p class="info">La fiche de remboursement a bien été créér</p>';
     ;
 

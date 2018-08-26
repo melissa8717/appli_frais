@@ -489,8 +489,8 @@ function fraisAll($idCnx, $unId,$mois){
 
 }
 
-function fraisHF($idCnx, $unId,$mois){
-    $requeteHF ="select * from  LigneFraisHorsForfait where LigneFraisHorsForfait.idVisiteur ='". $unId . "' and mois='".$mois."'";
+function fraisHF($idCnx, $unId,$Unmois){
+    $requeteHF ="select * from  LigneFraisHorsForfait where LigneFraisHorsForfait.idVisiteur ='". $unId . "' and mois='".$Unmois."'";
 
     $result = $idCnx->query($requeteHF);
   if ( $result) {
