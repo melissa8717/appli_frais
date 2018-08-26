@@ -44,7 +44,11 @@ var_dump( $_FILES['userfile']);
 $extensions = array('.png', '.gif', '.jpg', '.jpeg');
 $extension = strrchr($_FILES['userfile']['name'], '.');
 var_dump($extension);
+if (empty($FILES) && empty($POST) && isset($SERVER['REQUEST_METHOD']) && strtolower($SERVER['REQUEST_METHOD']) == 'post') { 
 
+$poidsMax = ini_get('post_max_size'); 
+$oElement->addError("fileoverload", "Your feet is too big, maximum allowed size here is $poidsMax."); 
+} 
 
 	if(!in_array($extension, $extensions))
 	{

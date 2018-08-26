@@ -581,3 +581,8 @@ function listeFrais($idCnx){
   }
   return $ligne;
 }
+
+function modifierFrais($idCnx, $idFrais, $libelle, $montant){
+	$requete= "update fraisforfait set  libelle ='".$libelle."', montant='".$montant."' where idFrais ='" .$idFrais . "'";
+	$idCnx->query($requete);
+}

@@ -13,7 +13,7 @@
         header("Location: cSeConnecter.php");
   }
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaire.inc.php");
+  require($repInclude . "_sommaireComptable.inc.php");
 
   if (isset($_POST['txtPuissance'])){
     //Fonction de validation / enregistrement
