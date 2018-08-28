@@ -34,14 +34,6 @@
   $unId = $_GET["id"];
   $requete=obtenirInfoVH($idConnexion, $unId);
 
-  if($_POST){
-    $requeteMVH=  modifVH($idConnexion, $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance'], $unId);
-    header("Location:../cConsultVehicule.php/?id=$unId");
-  }
-  else{
-  
-      header("Location:../cVehicule.php/?id=$unId");
-  }
 
 ?>
 <div id="contenu" >
@@ -56,6 +48,7 @@
     <tr>
 
       <?php
+        $idVehi=$vehi[0];
         $marque=$vehi[2];
         $modele=$vehi[3];
         $puissance=$vehi[4];
@@ -72,9 +65,7 @@
 
 
 
-<?php }
 
-  ?>
 <br />
     <div class="piedForm">
 
@@ -82,6 +73,17 @@
     <input type="submit" id="ok" value="Modifier" />
   </div>
 </form>
+
+
+ <form  action="../uploadCG.php" method="post" enctype="multipart/form-data" >
+
+      Transfèrer le fichier<br /><br /><br />
+      <input type="hidden" name="idVehi" value="<?php echo $idVehi; ?>" />
+       <input type="file" name="userfile" value="userfile" /><br /><br />
+      <input type="submit"  value="Valider" />
+    </form>
+  <?php }
+    ?>
 </div>
 <?php
 require($repInclude . "_pied.inc.html");

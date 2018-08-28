@@ -75,8 +75,10 @@ foreach ($requeteVisiteur as $value) {
        <tr>
         <td>Type</td><td>Quantité</td><td>Forfait</td><td>Total ligne</td>
       </tr>
+	  
 
-       <?php $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
+       <?php 
+	   $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
        $calculFrais = 0;
 
        foreach ($requeteForfait as $valeur ) { ?>
@@ -156,7 +158,7 @@ foreach ($requeteVisiteur as $value) {
          <td ><strong>Totaux</strong></td><td><?php echo $calulTotal.' €';?></td>
        </tr>
     </table>
- <form id="" action="" method="post">
+ <form id="" method="post">
     <div >
       <input type="hidden" name="etape" id="etape" value="validerConnexion" />
  <br />

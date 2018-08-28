@@ -12,7 +12,6 @@
   {
         header("Location: cSeConnecter.php");
   }
-
   $idHF= $_GET['id'];
 
   require($repInclude . "_entete.inc.html");
@@ -23,7 +22,7 @@
   <div id="contenu">
       <h1>GED</h1>
 
- <form enctype="multipart/form-data" action="upload.php" method="post" >
+ <form  action="../upload.php" method="post" enctype="multipart/form-data" >
 
       Transfèrer le fichier<br /><br /><br />
       <input type="hidden" name="id" value="<?php echo $idHF;?>" />

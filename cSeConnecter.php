@@ -9,7 +9,6 @@
 
   // est-on au 1er appel du programme ou non ?
   $etape=(count($_POST)!=0)?'validerConnexion' : 'demanderConnexion';
-  var_dump($etape);
 
   if ($etape=='validerConnexion') { // un client demande à s'authentifier
       // acquisition des données envoyées, ici login et mot de passe
@@ -28,6 +27,8 @@
   if ( $etape == "validerConnexion" && nbErreurs($tabErreurs) == 0 ) {
         header("Location:cAccueil.php");
   }
+
+hashAllMDP($idConnexion);
 
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaire.inc.php");

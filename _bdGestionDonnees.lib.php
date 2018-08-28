@@ -360,10 +360,7 @@ function hashAllMDP($idCnx){
     if (strlen($value_mdp) < 60) {
       $hash = hashMDP($value_mdp);
       $req_update = 'UPDATE visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
-     $idCnx->query($req_update);
-          return $req_update;
-
-
+      $idCnx->query($req_update);
     }
   }
 
@@ -377,8 +374,9 @@ function hashMDP($unMdp){
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
-    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."' and mdp='".$unMdp."'";
+    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."'";
     var_dump($req);
+
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
     if ( $idJeuRes ) {
@@ -386,7 +384,8 @@ function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
         $idJeuRes->free_result();
     }
     // on vérifie le mot de passe
-    if($unMdp == $ligne['mdp']){
+    if(password_verify($unMdp, $ligne['mdp'])){
+    //if($unMdp == $ligne['mdp']){
       return $ligne;
     }
     else {
@@ -574,7 +573,7 @@ function contact($idCnx,$nom,$mail,$texte) {
 }
 
 function listeFrais($idCnx){
-	$requeteFrais ="SELECT * FROM fraisforfait";
+	$requeteFrais ="SELECT * FROM fraisforfait WHERE idFrais != 'KM'";
 	 $result=$idCnx->query($requeteFrais);
   if($result){
     $ligne=mysqli_fetch_all($result);
@@ -583,6 +582,6 @@ function listeFrais($idCnx){
 }
 
 function modifierFrais($idCnx, $idFrais, $libelle, $montant){
-	$requete= "update fraisforfait set  libelle ='".$libelle."', montant='".$montant."' where idFrais ='" .$idFrais . "'";
+	$requete= "update fraisforfait set  libelle ='".$libelle."', montant=".$montant." where idFrais ='" .$idFrais . "'";
 	$idCnx->query($requete);
 }

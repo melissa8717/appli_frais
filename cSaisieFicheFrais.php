@@ -151,41 +151,38 @@
           $req = obtenirReqEltsHorsForfaitFicheFrais($mois, obtenirIdUserConnecte());
 
           $idJeuEltsHorsForfait = $idConnexion->query($req);
-          $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
-
+          $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_all(MYSQLI_ASSOC);
+		  $montant = 0;
           // parcours des frais hors forfait du visiteur connecté
-          while ( is_array($lgEltHorsForfait) ) {
+          foreach ( $lgEltHorsForfait as $HorsForfais ) {
           ?>
               <tr>
-                <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
-                <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
-                <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
-                <td><a href="?etape=validerSuppressionLigneHF&amp;idLigneHF=<?php echo $lgEltHorsForfait["id"]; ?>"
+                <td><?php echo $HorsForfais["date"] ; ?></td>
+                <td><?php echo filtrerChainePourNavig($HorsForfais["libelle"]) ; ?></td>
+                <td><?php echo $HorsForfais["montant"] ; ?></td>
+                <td><a href="?etape=validerSuppressionLigneHF&amp;idLigneHF=<?php echo $HorsForfais["id"]; ?>"
                        onclick="return confirm('Voulez-vous vraiment supprimer cette ligne de frais hors forfait ?');"
                        title="Supprimer la ligne de frais hors forfait">Supprimer</a></td>
               <?php
-              $lgEltHorsForfait["montant"] = array();
-              $montant += (int)$lgEltHorsForfait["montant"];
-              var_dump($montant);
-
-
-   }
+              $montant += $HorsForfais["montant"];
+			}
                ?></tr>
-
+           <tr>
+			
+			<td colspan="3">
+			Total
+			</td>
+			<td>
+          <?php
+				echo $montant;
+            ?>
+			</td>
+          </tr>
           <?php
               $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
 
           $idJeuEltsHorsForfait->free_result();?>
 
-          <table>
-            <tr>
-
-
-          <?php
-
-            ?>
-          </tr>
-          </table>
 
 
 
