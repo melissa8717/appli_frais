@@ -63,19 +63,19 @@ foreach ($requeteVisiteur as $value) {
      <table>
 
        <tr>
-        <td>Type</td><td>Quantité</td><td>Justificatifs</td></tr>
+        <td>Type</td><td>Quantité</td></tr>
 
        <?php $requete=  fraisAll($idConnexion, $unId,$mois);
        foreach ($requete as $valeur) { ?>
 
        <tr>
          <?php
-                             $idFrais =$valeur[3];
-                             $frais = $valeur[0];
+                             $idFrais =$valeur[2];
+                             $frais = $valeur[3];
                              $Id =$valeur[1];
          	?>
 
-         <td><?php echo $idFrais ; ?></td><td><?php echo $frais ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$Id.'" target="_blank">Voir les justificatifs</a></td>';?>
+         <td><?php echo $idFrais ; ?></td><td><?php echo $frais ; ?></td>
        </tr>
      <?php }?>
 
@@ -97,7 +97,7 @@ foreach ($requeteVisiteur as $value) {
                              $nomU = $valeur[0];
 
            ?>
-         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$unId.'" target="_blank">Voir les justificatifs</a></td>';?>
+         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$unId.'" target="_blank">Voir le justificatif</a></td>';?>
        </tr>
      <?php }?>
 

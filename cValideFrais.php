@@ -58,14 +58,16 @@
 
      <table class="listeLegere">
        <tr class="corpsForm">
-         <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs</td></tr>
+         <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs Frais</td><td>Carte grise</td></tr>
 
       <?php
-	  
+
 
 
 
 $req= listeVisiteur($idConnexion, $lgUser["id"]);
+$reqVH=obtenirInfoVH($idConnexion,$lgUser["id"] );
+
 
 
 	  foreach ( $req as $value )  {
@@ -80,7 +82,7 @@ $req= listeVisiteur($idConnexion, $lgUser["id"]);
 
 
 	?>
-           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?>
+           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?><?php echo"".'<td><a href="cJustificatifVehicule.php/?id='.$unId.'">Voir le justificatif</a></td>';?>
      </tr>
    <?php }?>
 

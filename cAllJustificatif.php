@@ -60,7 +60,7 @@ if(isset($_GET['id'])){
 
 
           $nbFichier = 0;
-          $dir = '/var/www/html/appli_frais/upload/'.$unId."/".$mois."/";
+          $dir = 'C:/wamp64/www/appli_frais/upload/'.$unId."/".$mois."/";
 
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;

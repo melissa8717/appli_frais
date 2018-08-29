@@ -405,14 +405,15 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
         $ligne = $idJeuRes->fetch_assoc();
         $idJeuRes->free_result();
 
-      // on vérifie le mot de passe
-      if($unMdp == $ligne['mdp']){
-        return $ligne;
-      }
-      else {
-        //le mot de passe ne correspond pas
-        return NULL;
-      }
+        // on vérifie le mot de passe
+        if(password_verify($unMdp, $ligne['mdp'])){
+        //if($unMdp == $ligne['mdp']){
+          return $ligne;
+        }
+        else {
+          //le mot de passe ne correspond pas
+          return NULL;
+        }
 
   }
 }
