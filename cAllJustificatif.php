@@ -46,9 +46,14 @@
       <div id="imgUpload">
 
 <?php
+$requeteVisiteur = infoVisiteur($idConnexion, $unId)
+  foreach ($requeteVisiteur as $valeur) {
+    $unId=$valeur[0];
+
+}
 $mois = date('Ym');
-if(isset($_GET['id'])){
-  $unId = $_GET["id"];
+if(isset($unId){
+
 
           if ( $etape == "validerConnexionCompta" )
           {

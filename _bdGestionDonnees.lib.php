@@ -437,9 +437,9 @@ function modifierEtatFicheFrais($idCnx,$unIdVisiteur, $calculTotal) {
 
 
 
-function ajoutVehicule($idCnx, $unIdVisiteur, $marque, $modele, $puissance) {
+function ajoutVehicule($idCnx, $unIdVisiteur, $marque, $modele, $puissance, $immatriculation) {
 
-    $requete  = "INSERT into Vehicule (idVisiteur, marque, modele, puissance) values ('". $unIdVisiteur . "','" .$marque. "','" . $modele. "','". $puissance . "')";
+    $requete  = "INSERT into Vehicule (idVisiteur, marque, modele, puissance, immatriculation) values ('". $unIdVisiteur . "','" .$marque. "','" . $modele. "','". $puissance . "', '".$immatriculation."')";
 
     $idCnx->query($requete);
 

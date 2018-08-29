@@ -8,7 +8,6 @@
   require($repInclude . "_init.inc.php");
 
   if(isset($_POST['rembourser'])){
-	  var_dump($_POST['rembourser']);
     require('PHP.php');
     echo '<p class="info">La fiche de remboursement a bien été créér</p>';
     ;
@@ -75,9 +74,9 @@ foreach ($requeteVisiteur as $value) {
        <tr>
         <td>Type</td><td>Quantité</td><td>Forfait</td><td>Total ligne</td>
       </tr>
-	  
 
-       <?php 
+
+       <?php
 	   $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
        $calculFrais = 0;
 

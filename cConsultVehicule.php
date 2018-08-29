@@ -41,7 +41,7 @@
 
 <table class="listeLegere">
   <tr class="corpsForm">
-    <td>Marque *</td><td>Modèle</td><td>Puissance fiscale</td>
+    <td>Marque *</td><td>Modèle</td><td>Puissance fiscale</td><td>Immatriculation</td>
   </tr>
   <?php foreach ($requete as $vehi) {?>
 
@@ -52,12 +52,15 @@
         $marque=$vehi[2];
         $modele=$vehi[3];
         $puissance=$vehi[4];
+        $immatriculation=$vehi[5];
 
        ?>
 
        <td>    <input type="text" id="<?php echo $marque;?>" name="txtMarque" value="<?php echo $marque;?>" /></td>
        <td>    <input type="text" id="<?php echo $modele;?>" name="txtModele" value="<?php echo $modele;?>" /></td>
        <td>    <input type="text" id="<?php echo $puissance;?>" name="txtPuissance" value="<?php echo $puissance;?>" /></td>
+       <td>    <input type="text" id="<?php echo $immatriculation;?>" name="txtImmatriculation" value="<?php echo $immatriculation;?>" /></td>
+
      </tr>
    </table>
 
@@ -69,8 +72,11 @@
 <br />
     <div class="piedForm">
 
-
+      <?php  if($_POST['ok']){
+          $requeteVehi=ajoutVehicule($idConnexion, $unId, $marque, $modele, $puissance, $immatriculation);
+        }?>
     <input type="submit" id="ok" value="Modifier" />
+
   </div>
 </form>
 

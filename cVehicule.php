@@ -17,7 +17,7 @@
 
   if (isset($_POST['txtPuissance'])){
     //Fonction de validation / enregistrement
-    ajoutVehicule($idConnexion, obtenirIdUserConnecte(), $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance']);
+    ajoutVehicule($idConnexion, obtenirIdUserConnecte(), $_POST['txtMarque'], $_POST['txtModele'], $_POST['txtPuissance'], $_POST['txtImmatriculation']);
 
     header("Location: ../cConsultVehicule.php/?id=$unId");
 
@@ -47,6 +47,10 @@
         <label for="txtPuissance" >* Puissance fiscale : </label>
         <input type="text" id="txtPuissance" name="txtPuissance" />
       </p>
+      <p>
+       <label for="txtImmatriculation" >* Immatriculation : </label>
+       <input type="text" id="txtImmatriculation" name="txtImmatriculation" />
+     </p>
 
       </div>
 

@@ -1646,3 +1646,4 @@ Stack trace:
 [26-Aug-2018 08:56:31 UTC] PHP Stack trace:
 [26-Aug-2018 08:56:31 UTC] PHP   1. {main}() C:\wamp64\www\appli_frais\cValideFrais.php:0
 [26-Aug-2018 08:56:31 UTC] PHP   2. require() C:\wamp64\www\appli_frais\cValideFrais.php:17
+[29-Aug-2018 16:06:41 UTC] PHP Parse error:  syntax error, unexpected '"')"' (T_CONSTANT_ENCAPSED_STRING) in C:\wamp64\www\appli_frais\_bdGestionDonnees.lib.php on line 442
