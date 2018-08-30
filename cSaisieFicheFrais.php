@@ -33,6 +33,25 @@
   $dateHF = lireDonnee("txtDateHF", "");
   $libelleHF = lireDonnee("txtLibelleHF", "");
   $montantHF = lireDonnee("txtMontantHF", "");
+  $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
+    $calculFrais = 0;
+
+    foreach ($requeteForfait as $valeur )
+                          $unIdForfait =$valeur[0];
+                          $frais = $valeur[6];
+                          $idLigne=$valeur[2];
+                          $forfait=$valeur[2];
+
+                          if($unIdForfait != 'KM'){
+                            $total_ligne = $forfait * $frais.' €';
+                            $forfait=$valeur[2];
+                          }
+                          else {
+                            $bareme = calculKM($idConnexion, $unId);
+                            $total_ligne = $bareme * $frais.' €';
+                            $forfait = $bareme;
+                          }
+
 
   // structure de décision sur les différentes étapes du cas d'utilisation
   if ($etape == "validerSaisie") {
@@ -59,6 +78,7 @@
   else { // on ne fait rien, étape non prévue
 
   }
+
 ?>
   <!-- Division principale -->
   <div id="contenu">
@@ -120,12 +140,16 @@
                     title="Entrez la quantité de l'élément forfaitisé"
                     value="<?php echo $quantite; ?>" />
             </p>
+            <p>
+            Total <?php echo $total_ligne;?>
+          </p>
             <?php
                 $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();
             }
             $idJeuEltsFraisForfait->free_result();
             ?>
           </fieldset>
+          <span>Totaux</span>
       </div>
       <div class="piedForm">
       <p>
@@ -168,7 +192,7 @@
 			}
                ?></tr>
            <tr>
-			
+
 			<td colspan="3">
 			Total
 			</td>

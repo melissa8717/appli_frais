@@ -20,14 +20,15 @@
     require($repInclude . "_sommaire.inc.php");
 
 
-      if (estVisiteurConnecte() ) {
+
           $idUser = obtenirIdUserConnecte() ;
+          var_dump($idUser);
           $lgUser = obtenirDetailVisiteur($idConnexion, $idUser);
           $nom = $lgUser['nom'];
           $nomU= $lgUser['nom']."/".$prenom."/";
           $prenom = $lgUser['prenom'];
 
-		}
+
 
 
 $idHF= $_POST['id'];
@@ -36,7 +37,8 @@ $mois = date('Ym');
 $date = date("d-m-Y ");
 $heure= date('H:i:s');
 $login = lireDonneePost("txtLogin");
-$dossier_visiteur = 'C:/wamp64/www/appli_frais/upload/'.$idUser."/".$mois."/";
+$dossier_visiteur = 'C:/wamp64/www/appli_frais/upload/'.$idUser."/".$mois."/".$idHF."/";
+var_dump($dossier_visiteur);
 $fichier = $_FILES['userfile']['name'].$date.$heure;
 $taille_maxi = 1000000;
 $taille = $_FILES['userfile']['size'];

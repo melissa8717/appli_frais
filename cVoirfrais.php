@@ -97,7 +97,7 @@ foreach ($requeteVisiteur as $value) {
                              $nomU = $valeur[0];
 
            ?>
-         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$nomU.'" target="_blank">Voir le justificatif</a></td>';?>
+         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$nomU.'&id2='.$unId.'" target="_blank">Voir le justificatif</a></td>';?>
        </tr>
      <?php }?>
 

@@ -33,7 +33,9 @@
      $id=$_GET['id'];
      header("Location:/appli_frais/cVoirfrais.php/?id=$id");
   }
-  $unId = $_GET["id"];
+  $unIdFrais = $_GET["id"];
+  $unIdV =$_GET["id2"];
+
 
 
   require($repInclude . "_entete.inc.html");
@@ -46,13 +48,9 @@
       <div id="imgUpload">
 
 <?php
-$requeteVisiteur = infoVisiteur($idConnexion, $unId)
-  foreach ($requeteVisiteur as $valeur) {
-    $unId=$valeur[0];
 
-}
 $mois = date('Ym');
-if(isset($unId){
+if(isset($unIdV)){
 
 
           if ( $etape == "validerConnexionCompta" )
@@ -65,7 +63,7 @@ if(isset($unId){
 
 
           $nbFichier = 0;
-          $dir = 'C:/wamp64/www/appli_frais/upload/'.$unId."/".$mois."/";
+          $dir = 'C:/wamp64/www/appli_frais/upload/'.$unIdV."/".$mois."/".$unIdFrais."/";
 
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;
@@ -80,7 +78,7 @@ if(isset($unId){
                 <?php echo '<td>'.'<img src="http://'.$path_file.'/'.$fichier.'"/>'.'</td>';?></tr>
 
 
-                <tr><td><h2><a href="?id=<?php echo $unId;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
+                <tr><td><h2><a href="?id=<?php echo $unIdV;?>&?id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
               <?php }
             }
             closedir($dossier);

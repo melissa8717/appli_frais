@@ -154,11 +154,13 @@
             $req = obtenirReqEltsHorsForfaitFicheFrais($moisSaisi, obtenirIdUserConnecte());
             $idJeuEltsHorsForfait = $idConnexion->query($req);
             $lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();
-            $idFraisHF = $lgEltHorsForfait["id"];
+
 			if(isset($lgEltHorsForfait)){
 
 				// parcours des éléments hors forfait
 				while ( is_array($lgEltHorsForfait) ) {
+          $idFraisHF = $lgEltHorsForfait["id"];
+
 				?>
 					<tr>
 					   <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
