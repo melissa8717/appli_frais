@@ -424,3 +424,7 @@ input[type=submit]{
 .smenu{
   border-radius: 15px;
 }
+
+.input-vehi{
+  width: 30px;
+}

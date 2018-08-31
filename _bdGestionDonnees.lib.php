@@ -252,7 +252,7 @@ function obtenirReqTypeFrais() {
  */
 function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD( $unMois);
-    $requete = "select idFraisForfait, libelle, quantite from LigneFraisForfait
+    $requete = "select idFraisForfait, libelle, quantite, montant from LigneFraisForfait
               inner join FraisForfait on FraisForfait.idFrais = LigneFraisForfait.idFraisForfait
               where idVisiteur='" . $unIdVisiteur . "' and mois='" . $unMois . "'";
     return $requete;
@@ -457,8 +457,8 @@ function  obtenirInfoVH($idCnx, $unId){
             return $ligne;
 }
 
-function modifVH($idCnx, $marque, $modele, $puissance, $unIdVisiteur){
-$requeteMVH= "update Vehicule set  marque ='".$marque."', modele='".$modele."', puissance='".$puissance."' where idVisiteur ='" .$unIdVisiteur . "'";
+function modifVH($idCnx, $marque, $modele, $puissance, $unIdVehicule){
+$requeteMVH= "update Vehicule set  marque ='".$marque."', modele='".$modele."', puissance='".$puissance."' where idVehicule  ='" .$unIdVehicule . "'";
 $idCnx->query($requeteMVH);
 
 

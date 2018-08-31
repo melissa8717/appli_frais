@@ -27,16 +27,34 @@
         header("Location:cAccueil.php");
   }
 
+   if(isset($_GET['delete'])){
+     $file_to_delete = $_GET['delete'];
+     unlink($file_to_delete);
+     $id=$_GET['id'];
+     header("Location:/appli_frais/cVoirfrais.php/?id=$id");
+  }
+  $unId = $_GET["id"];
+
+
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaire.inc.php");
+  require($repInclude . "_sommaireComptable.inc.php");
 
 ?>
 
 <!-- Division pour le contenu principal -->
     <div id="contenuUpload">
-
+      <div id="imgUpload">
 
 <?php
+$mois = date('Ym');
+$requete = obtenirInfoVH($idConnexion, $unId);
+foreach ($requete as  $vehi) {
+  $idVehi = $vehi[0];
+}
+
+if(isset($_GET['id'])){
+  $unId = $_GET["id"];
+
           if ( $etape == "validerConnexionCompta" )
           {
               if ( nbErreurs($tabErreurs) > 0 )
@@ -46,37 +64,32 @@
           }
 
 
+          $nbFichier = 0;
+          $dir = 'C:/wamp64/www/appli_frais/upload/'.$unId."/".$idVehi."/";
 
-          $path = $_SERVER['SERVER_NAME'] ;
-          $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $_SESSION['url']);
+          if($dossier = opendir($dir)){
+            $path = $_SERVER['SERVER_NAME'] ;
+            $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $dir);
 
-          ?>
-        <?php  if(isset($_GET['delete'])){
-            unlink($_SESSION['url']);
-            echo '<h3>Fichier supprimé</h3>';
-            header('Refresh: 4; cGed.php');
+            while(false !== ($fichier = readdir($dossier))){
+              if($fichier !='.' && $fichier !='..' && $fichier != 'index.php'){
+                $nbFichier++;
+                ?>
+                <table>
+                  <tr>
+                <?php echo '<td>'.'<img src="http://'.$path_file.'/'.$fichier.'"/>'.'</td>';?></tr>
+
+
+                <tr><td><h2><a href="?id=<?php echo $unId;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
+              <?php }
+            }
+            closedir($dossier);
+
           }
-          if(isset($_GET['valider'])){
-              echo '<h3>Fichier validé</h3>';
-              header('Refresh: 3; cAccueil');
-            }?>
-          <table>
-          <tr>
-            <h1>Vérification du fichier</h1>
-            <h2>Merci de valider ou non le fichier téléchargé</h2>
-        </tr>
+          else{
+            echo ' Pas de frais ';
+          }
 
-            <tr >
-              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:130px;"/></td>
-            </tr>
-            <tr>
-              <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2><h2><a href="?valider=cGed.php">Valider</a></h2></td>
-
-            </tr>
-          </table>
-
-<?php
-
-
+}
     require($repInclude . "_pied.inc.html");
     require($repInclude . "_fin.inc.php");

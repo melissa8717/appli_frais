@@ -33,25 +33,6 @@
   $dateHF = lireDonnee("txtDateHF", "");
   $libelleHF = lireDonnee("txtLibelleHF", "");
   $montantHF = lireDonnee("txtMontantHF", "");
-  $requeteForfait=  fraisForfait($idConnexion, $unId,$mois);
-    $calculFrais = 0;
-
-    foreach ($requeteForfait as $valeur )
-                          $unIdForfait =$valeur[0];
-                          $frais = $valeur[6];
-                          $idLigne=$valeur[2];
-                          $forfait=$valeur[2];
-
-                          if($unIdForfait != 'KM'){
-                            $total_ligne = $forfait * $frais.' €';
-                            $forfait=$valeur[2];
-                          }
-                          else {
-                            $bareme = calculKM($idConnexion, $unId);
-                            $total_ligne = $bareme * $frais.' €';
-                            $forfait = $bareme;
-                          }
-
 
   // structure de décision sur les différentes étapes du cas d'utilisation
   if ($etape == "validerSaisie") {
@@ -117,6 +98,7 @@
 
                $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();
             }
+            $total_global = 0;
             while ( is_array($lgEltForfait) ) {
               if(isset($lgEltForfait["idFraisForfait"])){
                 $idFraisForfait = $lgEltForfait["idFraisForfait"];
@@ -131,6 +113,14 @@
               else {
                 $quantite = 0;
               }
+              if(isset($lgEltForfait["montant"])){
+                $montant = $lgEltForfait["montant"];
+              }
+              else {
+                $montant = 0;
+              }
+              $total_line = $quantite * $montant;
+              $total_global = $total_global + $total_line;
             ?>
             <p>
               <label for="<?php echo $idFraisForfait ?>">* <?php echo $libelle; ?> : </label>
@@ -141,7 +131,7 @@
                     value="<?php echo $quantite; ?>" />
             </p>
             <p>
-            Total <?php echo $total_ligne;?>
+            Total <?php echo $total_line . '€';?>
           </p>
             <?php
                 $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();
@@ -149,7 +139,7 @@
             $idJeuEltsFraisForfait->free_result();
             ?>
           </fieldset>
-          <span>Totaux</span>
+          <span>Totaux</span><?php echo $total_global; ?>
       </div>
       <div class="piedForm">
       <p>

@@ -90,12 +90,14 @@ foreach ($requeteVisiteur as $value) {
                              $forfait=$valeur[2];
 
                              if($unIdForfait != 'KM'){
-                               $total_ligne = $forfait * $frais.' €';
+                               $tot_ligne = $forfait * $frais;
+                               $total_ligne = $tot_ligne .' €';
                                $forfait=$valeur[2];
                              }
                              else {
                                $bareme = calculKM($idConnexion, $unId);
-                               $total_ligne = $bareme * $frais.' €';
+                               $tot_ligne = $bareme * $frais;
+                               $total_ligne = $tot_ligne.' €';
                                $forfait = $bareme;
                              }
          	?>
@@ -103,7 +105,7 @@ foreach ($requeteVisiteur as $value) {
          <td><?php echo $unIdForfait ; ?></td><td><?php echo $frais ; ?></td><td><?php echo $forfait;?></td><td><?php echo $total_ligne;?></td>
      </tr>
      <?php
-            $calculFrais = $calculFrais + $total_ligne;
+            $calculFrais = $calculFrais + $tot_ligne;
      }
 
      ?>
