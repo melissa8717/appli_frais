@@ -147,6 +147,7 @@
                 <th class="libelle">Libellé</th>
                 <th class="montant">Montant</th>
                 <th>Justificatifs</th>
+                <th>Télécharger</th>
              </tr>
 <?php
             // demande de la requête pour obtenir la liste des éléments hors
@@ -167,6 +168,12 @@
 					   <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
 					   <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
              <?php echo"".'<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';?>
+            <td><?php if($lgEltHorsForfait["justificatif"] == 1 ){
+                  echo "Frais téléchargé";
+             }
+             else{
+               echo "En attente de téléchargement";
+             }?></td>
 					</tr>
 				<?php
 					$lgEltHorsForfait = $idJeuEltsHorsForfait->fetch_assoc();

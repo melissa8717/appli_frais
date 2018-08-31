@@ -70,7 +70,9 @@
               <td ><img src="http://<?php echo $path_file;?>" style="padding-left:130px;"/></td>
             </tr>
             <tr>
-              <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2><h2><a href="?valider=cGed.php">Valider</a></h2></td>
+              <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2>
+                  <h2><a href="?valider=cGed.php">Valider</a></h2>
+              </td>
 
             </tr>
           </table>

@@ -78,7 +78,7 @@ if(isset($unIdV)){
                 <?php echo '<td>'.'<img src="http://'.$path_file.'/'.$fichier.'"/>'.'</td>';?></tr>
 
 
-                <tr><td><h2><a href="?id=<?php echo $unIdV;?>&?id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
+                <tr><td><h2><a href="../cFormCompta.php?id=<?php echo $unIdV;?>&id2=<?php echo $unIdFrais;?>">Refuser</a> </h2><td></tr><br /></table>;
               <?php }
             }
             closedir($dossier);
