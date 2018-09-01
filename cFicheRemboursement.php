@@ -37,6 +37,7 @@
       }
   }
   $unId = $_SESSION["idUser"];
+  $requete = fraisMois($idConnexion, obtenirIdUserConnecte());
 
 ?>
   <!-- Division principale -->
@@ -44,24 +45,42 @@
       <h2>Mes fiches de remboursement</h2>
     <?php  $nbFichier = 0;
     $mois = date('Ym');
-      $dir = '/var/www/html/appli_frais/PDF_Fiche_Frais/'.$unId."/".$mois;
-    if($dossier = opendir($dir)){
-        $path = $_SERVER['SERVER_NAME'] ;
-        $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $dir);
+    ?>
+  <table>
+    <tr>
+      <td>Mois</td>
+      <td>Lien</td>
+    </tr>
 
-        while(false !== ($fichier = readdir($dossier))){
-          if($fichier !='.' && $fichier !='..' && $fichier != 'index.php'){
-            $nbFichier++;
-            ?>
-            <table>
-              <tr>
-            <?php echo '<td>'.'<a href="http://'.$path_file.'/'.$fichier.'">Télécharger le PDF</a>'.'</td>';?></tr>
+<?php
 
+  foreach($requete->fetch_all() as $result){
+    $dir = 'C:/wamp64/www/appli_frais/PDF_Fiche_Frais/'.$unId."/".$result[0];
 
-          <?php }
-        }
-        closedir($dossier);
+    ?>
+    <tr>
+      <td><?php echo $result[0];?></td>
+      <?php
+      if(is_dir($dir)){
+        $dossier = opendir($dir);
+          $path = $_SERVER['SERVER_NAME'] ;
+          $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $dir);
+          ?>
+          <td>
+            <?php
+          while (false !== ($fichier = readdir($dossier))) {
+            if ($fichier != "." && $fichier != "..") {
+              echo '<a href="http://'.$path_file.'/'.$fichier.'">Télécharger le PDF</a>';
+            }
+          }?>
+        </td>
+        <?php
+          closedir($dossier);
       }
       else {
-        echo 'Pas de fiche de remboursement';
+        echo '<td>Pas de fiche de remboursement</td>';
       }
+      ?>
+    </tr>
+  <?php
+  }

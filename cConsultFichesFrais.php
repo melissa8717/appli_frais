@@ -140,7 +140,7 @@
         </tr>
     </table>
   	<table class="listeLegere">
-  	   <caption>Descriptif des éléments hors forfait - <?php echo $tabFicheFrais["nbJustificatifs"]; ?> justificatifs reçus -
+  	   <caption>Descriptif des éléments hors forfait - 
        </caption>
              <tr>
                 <th class="date">Date</th>

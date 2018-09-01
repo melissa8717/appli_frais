@@ -93,7 +93,7 @@
             $lgEltForfait = mysqli_fetch_assoc($idJeuEltsFraisForfait);
             if(!is_array($lgEltForfait)){
                $req = obtenirReqTypeFrais();
-               $idJeuEltsFraisForfait = mysql_query($idConnexion,$req);
+               $idJeuEltsFraisForfait = mysqli_query($idConnexion,$req);
 
 
                $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();

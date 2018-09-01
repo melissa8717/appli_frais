@@ -69,16 +69,16 @@ function filtrerChainePourBD($str) {
 }
 
 /**
- * Fournit les informations sur un visiteur demandé.
- * Retourne les informations du visiteur d'id $unId sous la forme d'un tableau
+ * Fournit les informations sur un utilisateur demandé.
+ * Retourne les informations du utilisateur d'id $unId sous la forme d'un tableau
  * associatif dont les clés sont les noms des colonnes(id, nom, prenom).
  * @param resource $idCnx identifiant de connexion
  * @param string $unId id de l'utilisateur
- * @return array  tableau associatif du visiteur
+ * @return array  tableau associatif du utilisateur
  */
 function obtenirDetailVisiteur($idCnx, $unId) {
     $id = filtrerChainePourBD($unId);
-    $requete = "select id, nom, prenom from visiteur where id='" . $unId . "'";
+    $requete = "select id, nom, prenom from utilisateur where id='" . $unId . "'";
 
     $idJeuRes = $idCnx->query($requete);
     $ligne = false;
@@ -97,13 +97,13 @@ function obtenirDetailVisiteur($idCnx, $unId) {
  * (nbJustitificatifs, idEtat, libelleEtat, dateModif, montantValide).
  * @param resource $idCnx identifiant de connexion
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return array tableau associatif de la fiche de frais
  */
 function obtenirDetailFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD($unMois);
     $ligne = false;
-    $requete="select IFNULL(nbJustificatifs,0) as nbJustificatifs, Etat.id as idEtat, libelle as libelleEtat, dateModif, montantValide
+    $requete="select  Etat.id as idEtat, libelle as libelleEtat, dateModif, montantValide
     from fichefrais inner join Etat on idEtat = Etat.id
     where idVisiteur='" . $unIdVisiteur . "' and mois='" . $unMois . "'";
     $idJeuRes = $idCnx->query($requete);
@@ -119,11 +119,11 @@ function obtenirDetailFicheFrais($idCnx, $unMois, $unIdVisiteur) {
 
 /**
  * Vérifie si une fiche de frais existe ou non.
- * Retourne true si la fiche de frais du mois de $unMois (MMAAAA) du visiteur
+ * Retourne true si la fiche de frais du mois de $unMois (MMAAAA) du utilisateur
  * $idVisiteur existe, false sinon.
  * @param resource $idCnx identifiant de connexion
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return booléen existence ou non de la fiche de frais
  */
 function existeFicheFrais($idCnx, $unMois, $unIdVisiteur) {
@@ -142,10 +142,10 @@ function existeFicheFrais($idCnx, $unMois, $unIdVisiteur) {
 }
 
 /**
- * Fournit le mois de la dernière fiche de frais d'un visiteur.
- * Retourne le mois de la dernière fiche de frais du visiteur d'id $unIdVisiteur.
+ * Fournit le mois de la dernière fiche de frais d'un utilisateur.
+ * Retourne le mois de la dernière fiche de frais du utilisateur d'id $unIdVisiteur.
  * @param resource $idCnx identifiant de connexion
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return string dernier mois sous la forme AAAAMM
  */
 function obtenirDernierMoisSaisi($idCnx, $unIdVisiteur) {
@@ -163,17 +163,17 @@ function obtenirDernierMoisSaisi($idCnx, $unIdVisiteur) {
 
 /**
  * Ajoute une nouvelle fiche de frais et les éléments forfaitisés associés,
- * Ajoute la fiche de frais du mois de $unMois (MMAAAA) du visiteur
+ * Ajoute la fiche de frais du mois de $unMois (MMAAAA) du utilisateur
  * $idVisiteur, avec les éléments forfaitisés associés dont la quantité initiale
- * est affectée à 0. Clôt éventuellement la fiche de frais précédente du visiteur.
+ * est affectée à 0. Clôt éventuellement la fiche de frais précédente du utilisateur.
  * @param resource $idCnx identifiant de connexion
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return void
  */
 function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD($unMois);
-    // modification de la dernière fiche de frais du visiteur
+    // modification de la dernière fiche de frais du utilisateur
     /*$dernierMois = obtenirDernierMoisSaisi($idCnx, $unIdVisiteur);
     $laDerniereFiche = obtenirDetailFicheFrais($idCnx, $dernierMois, $unIdVisiteur);
     die();
@@ -183,9 +183,9 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
 
 
     // ajout de la fiche de frais à l'état Créé
-    $requete = "insert into fichefrais (idVisiteur, mois, nbJustificatifs, montantValide, idEtat, dateModif) values ('"
+    $requete = "insert into fichefrais (idVisiteur, mois, montantValide, idEtat, dateModif) values ('"
               . $unIdVisiteur
-              . "','" . $unMois . "',0,NULL, 'CR', '" . date("Y-m-d") . "')";
+              . "','" . $unMois . "',NULL, 'CR', '" . date("Y-m-d") . "')";
     $idCnx->query($requete);
 
     // ajout des éléments forfaitisés
@@ -210,28 +210,28 @@ function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
 
 /**
  * Retourne le texte de la requête select concernant les mois pour lesquels un
- * visiteur a une fiche de frais.
+ * utilisateur a une fiche de frais.
  *
  * La requête de sélection fournie permettra d'obtenir les mois (AAAAMM) pour
- * lesquels le visiteur $unIdVisiteur a une fiche de frais.
- * @param string $unIdVisiteur id visiteur
+ * lesquels le utilisateur $unIdVisiteur a une fiche de frais.
+ * @param string $unIdVisiteur id utilisateur
  * @return string texte de la requête select
  */
 function obtenirReqMoisFicheFrais($unIdVisiteur) {
-    $req = "select fichefrais.mois from  fichefrais where fichefrais.idvisiteur ='"
+    $req = "select fichefrais.mois from  fichefrais where fichefrais.idVisiteur ='"
             . $unIdVisiteur . "' order by fichefrais.mois asc ";
     return $req ;
 }
 
 /**
  * Retourne le texte de la requête select concernant les éléments forfaitisés
- * d'un visiteur pour un mois donnés.
+ * d'un utilisateur pour un mois donnés.
  *
  * La requête de sélection fournie permettra d'obtenir l'id, le libellé et la
- * quantité des éléments forfaitisés de la fiche de frais du visiteur
+ * quantité des éléments forfaitisés de la fiche de frais du utilisateur
  * d'id $idVisiteur pour le mois $mois
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return string texte de la requête select
  */
 function obtenirReqTypeFrais() {
@@ -241,13 +241,13 @@ function obtenirReqTypeFrais() {
 
 /**
  * Retourne le texte de la requête select concernant les éléments forfaitisés
- * d'un visiteur pour un mois donnés.
+ * d'un utilisateur pour un mois donnés.
  *
  * La requête de sélection fournie permettra d'obtenir l'id, le libellé et la
- * quantité des éléments forfaitisés de la fiche de frais du visiteur
+ * quantité des éléments forfaitisés de la fiche de frais du utilisateur
  * d'id $idVisiteur pour le mois $mois
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return string texte de la requête select
  */
 function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
@@ -260,13 +260,13 @@ function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
 
 /**
  * Retourne le texte de la requête select concernant les éléments hors forfait
- * d'un visiteur pour un mois donnés.
+ * d'un utilisateur pour un mois donnés.
  *
  * La requête de sélection fournie permettra d'obtenir l'id, la date, le libellé
- * et le montant des éléments hors forfait de la fiche de frais du visiteur
+ * et le montant des éléments hors forfait de la fiche de frais du utilisateur
  * d'id $idVisiteur pour le mois $mois
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur id visiteur
+ * @param string $unIdVisiteur id utilisateur
  * @return string texte de la requête select
  */
 function obtenirReqEltsHorsForfaitFicheFrais( $unMois, $unIdVisiteur) {
@@ -293,10 +293,10 @@ function supprimerLigneHF($idCnx, $unIdLigneHF) {
  * Ajoute une nouvelle ligne hors forfait.
  * Insère dans la BD la ligne hors forfait de libellé $unLibelleHF du montant
  * $unMontantHF ayant eu lieu à la date $uneDateHF pour la fiche de frais du mois
- * $unMois du visiteur d'id $unIdVisiteur
+ * $unMois du  d'id $unIdVisiteur
  * @param resource $idCnx identifiant de connexion
  * @param string $unMois mois demandé (AAMMMM)
- * @param string $unIdVisiteur id du visiteur
+ * @param string $unIdVisiteur id du utilisateur
  * @param string $uneDateHF date du frais hors forfait
  * @param string $unLibelleHF libellé du frais hors forfait
  * @param double $unMontantHF montant du frais hors forfait
@@ -314,13 +314,13 @@ function ajouterLigneHF($idCnx, $unMois, $unIdVisiteur, $uneDateHF, $unLibelleHF
 /**
  * Modifie les quantités des éléments forfaitisés d'une fiche de frais.
  * Met à jour les éléments forfaitisés contenus
- * dans $desEltsForfaits pour le visiteur $unIdVisiteur et
+ * dans $desEltsForfaits pour le utilisateur $unIdVisiteur et
  * le mois $unMois dans la table LigneFraisForfait, après avoir filtré
  * (annulé l'effet de certains caractères considérés comme spéciaux par
  *  MySql) chaque donnée
  * @param resource $idCnx identifiant de connexion
  * @param string $unMois mois demandé (MMAAAA)
- * @param string $unIdVisiteur  id visiteur
+ * @param string $unIdVisiteur  id utilisateur
  * @param array $desEltsForfait tableau des quantités des éléments hors forfait
  * avec pour clés les identifiants des frais forfaitisés
  * @return void
@@ -350,7 +350,7 @@ function modifierEltsForfait($idCnx, $unMois, $unIdVisiteur, $desEltsForfait) {
  */
 
 function hashAllMDP($idCnx){
-	$req ="SELECT mdp FROM visiteur";
+	$req ="SELECT mdp FROM utilisateur";
   $results = $idCnx->query($req);
   while($mdp = $results->fetch_assoc()){
     $mot_passe[] = $mdp['mdp'];
@@ -359,7 +359,7 @@ function hashAllMDP($idCnx){
   foreach ($mot_passe as $key => $value_mdp){
     if (strlen($value_mdp) < 60) {
       $hash = hashMDP($value_mdp);
-      $req_update = 'UPDATE visiteur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
+      $req_update = 'UPDATE utilisateur SET mdp="'.$hash.'" WHERE mdp="'.$value_mdp.'"';
       $idCnx->query($req_update);
     }
   }
@@ -374,8 +374,7 @@ function hashMDP($unMdp){
 function verifierInfosConnexion($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
-    $req = "select id, nom, prenom, login, mdp from visiteur where  login='".$unLogin."'";
-    var_dump($req);
+    $req = "select id, nom, prenom, login, mdp from utilisateur where  login='".$unLogin."'";
 
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
@@ -398,7 +397,7 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
     $unLogin = filtrerChainePourBD($unLogin);
     //$unMdp = filtrerChainePourBD($unMdp);
     // le mot de passe est crypté dans la base avec la fonction de hachage md5
-    $req = "select id, nom, prenom, login, mdp from Visiteur where type='comptable' and  login='".$unLogin."'";
+    $req = "select id, nom, prenom, login, mdp from utilisateur where type='comptable' and  login='".$unLogin."'";
     $idJeuRes = $idCnx->query($req);
     $ligne = false;
     if ( $idJeuRes ) {
@@ -421,7 +420,7 @@ function verifierInfosConnexionComptable($idCnx, $unLogin, $unMdp) {
 /**
  * Modifie l'état et la date de modification d'une fiche de frais
 
- * Met à jour l'état de la fiche de frais du visiteur $unIdVisiteur pour
+ * Met à jour l'état de la fiche de frais du utilisateur $unIdVisiteur pour
  * le mois $unMois à la nouvelle valeur $unEtat et passe la date de modif à
  * la date d'aujourd'hui
  * @param resource $idCnx identifiant de connexion
@@ -465,7 +464,7 @@ $idCnx->query($requeteMVH);
 }
 
 function listeVisiteur($idCnx, $unId){
-    $req ="select nom, prenom, id, telephone from visiteur";
+    $req ="select nom, prenom, id, telephone from utilisateur";
     $result = $idCnx->query($req);
   if ( $result) {
        $ligne = mysqli_fetch_all($result);
@@ -503,7 +502,7 @@ function fraisHF($idCnx, $unId,$Unmois){
 
 }
 function infoVisiteur($idCnx, $unId){
-    $requeteVisiteur = "select nom, prenom, id from visiteur where id='". $unId . "'";
+    $requeteVisiteur = "select nom, prenom, id from utilisateur where id='". $unId . "'";
   $result = $idCnx->query($requeteVisiteur);
   if($result){
     $ligne = mysqli_fetch_all($result);
@@ -590,4 +589,17 @@ function modifierFrais($idCnx, $idFrais, $libelle, $montant){
 function causeRefuse($idCnx,$idFrais, $cause){
   $requeteCause ="insert into lignefraishorsforfait (id,cause_refus) values('".$idFrais."', '".$cause."')";
   $idCnx->query($requeteCause);
+}
+
+function valideFrais($idCnx,$idFrais){
+  $requete="update lignefraishorsforfait set justificatif= true where id='".$idFrais."'";
+  $idCnx->query($requete);
+}
+function fraisMois($idCnx,$idVisiteur){
+  $last_year = date('Y')-1;
+  $last_year .= date('m');
+  $req = "select fichefrais.mois from  fichefrais where fichefrais.idVisiteur ='"
+          . $idVisiteur . "' AND mois >='$last_year' order by fichefrais.mois asc ";
+  $results = $idCnx->query($req);
+  return $results;
 }
