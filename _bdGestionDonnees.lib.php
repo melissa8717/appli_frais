@@ -587,7 +587,9 @@ function modifierFrais($idCnx, $idFrais, $libelle, $montant){
 }
 
 function causeRefuse($idCnx,$idFrais, $cause){
-  $requeteCause ="update lignefraishprsforfait set cause_refus='".$cause."' where id='".$idFrais."'";
+
+  $requeteCause ="update lignefraishorsforfait set cause_refus='".$cause."' where id='".$idFrais."'";
+  var_dump($requeteCause);
   $idCnx->query($requeteCause);
 }
 
@@ -605,11 +607,17 @@ function fraisMois($idCnx,$idVisiteur){
 }
 
 function AjoutCheminJustificatif($idCnx, $url, $idFrais){
-  $requeteJustificatif = "update lignefraishorsforfait set url_justificatif ='".$url."' where idFrais ='" .$idFrais . "'";
+  $requeteJustificatif = "update lignefraishorsforfait set url_justificatif ='".$url."' where id ='" .$idFrais . "'";
   $idCnx->query($requeteJustificatif);
 }
 
 function modifiEtatJustificatif($idCnx, $idFrais){
   $requete="update lignefraishorsforfait set justificatif= false where id='".$idFrais."'";
   $idCnx->query($requete);
+}
+
+function recupererCheminFichier($idCnx, $idFrais){
+  $requeteChemin= "select url_justificatif from lignefraishorsforfait where id ='".$idFrais."'";
+  $results=  $idCnx->query($requeteChemin);
+  return $results;
 }

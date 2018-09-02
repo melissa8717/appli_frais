@@ -48,8 +48,10 @@ $idFrais = $_GET['id'];
           }
 
           $path = $_SERVER['SERVER_NAME'] ;
-          //// TODO: Requete pour aller chercher le chemin en base de données a partir de l'ID que tu as dans $_GET['id']
-          $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $_SESSION['url']);
+          // Requete pour aller chercher le chemin en base de données a partir de l'ID que tu as dans $_GET['id']
+          $results_file = recupererCheminFichier($idConnexion, $idFrais);
+          $url_file = $results_file->fetch_assoc();
+          $path_file = str_replace($_SERVER['DOCUMENT_ROOT'],$path, $url_file['url_justificatif']);
 
           ?>
         <?php  if(isset($_GET['delete'])){
@@ -60,16 +62,18 @@ $idFrais = $_GET['id'];
           if(isset($_GET['valider'])){
             $requete = valideFrais($idConnexion,$idFrais);
               echo '<h3>Fichier validé</h3>';
-              //header('Refresh: 3; cAccueil');
+              header('Refresh: 3; cAccueil');
             }?>
           <table>
           <tr>
             <h1>Vérification du fichier</h1>
+            <br />
             <h2>Merci de valider ou non le fichier téléchargé</h2>
+            <br />
         </tr>
 
             <tr >
-              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:30%;height:75%;"/></td>
+              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:3 0%;height:75%;"/></td>
             </tr>
             <tr>
               <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2>

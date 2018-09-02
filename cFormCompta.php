@@ -23,17 +23,19 @@
       }
   }
   if ( $etape == "validerConnexion" && nbErreurs($tabErreurs) == 0 ) {
-        header("Location:cAccueil.php");
-  }
-   if(isset($_GET['delete'])){
-     $unIdFrais = $_GET["id"];
-
-     $requete = causeRefuse($idConnexion,$unIdFrais, $_POST['txtCause']);
-     $file_to_delete = $_GET['delete'];
-     unlink($file_to_delete);
-
+        header("Location:cValideFrais.php");
   }
   $unIdFrais = $_GET["id2"];
+
+   if(isset($_POST)){
+     $requete = causeRefuse($idConnexion,$unIdFrais, $_POST['txtCause']);
+     $results_file = recupererCheminFichier($idConnexion, $idFrais);
+     $url_file = $results_file->fetch_assoc();
+
+     $file_to_delete = $url_file['url_justificatif'];
+     //unlink($file_to_delete);
+     AjoutCheminJustificatif($idConnexion, '', $unIdFrais);
+  }
   $unIdV =$_GET["id"];
 
 
@@ -80,8 +82,9 @@ $mois = date('Ym');
                     <td><input type="text" id="txtCause" name="txtCause"  /></td>
                     </tr>
                     <tr>
-                    <td><h2><a href="?id=<?php echo $unIdV;?>&?id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>
+                    <!--<td><h2><a href="?id=<?php echo $unIdV;?>&id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>-->
                   </table>
+                  <input type="submit" value="Supprimer"/>
                 </form>
               <?php }
             }
