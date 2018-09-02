@@ -140,14 +140,14 @@
         </tr>
     </table>
   	<table class="listeLegere">
-  	   <caption>Descriptif des éléments hors forfait - 
+  	   <caption>Descriptif des éléments hors forfait -
        </caption>
              <tr>
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class="montant">Montant</th>
-                <th>Justificatifs</th>
-                <th>Télécharger</th>
+                <th>Justificatif</th>
+                <th>Etat</th>
              </tr>
 <?php
             // demande de la requête pour obtenir la liste des éléments hors
@@ -161,18 +161,25 @@
 				// parcours des éléments hors forfait
 				while ( is_array($lgEltHorsForfait) ) {
           $idFraisHF = $lgEltHorsForfait["id"];
-
+          $cause = $lgEltHorsForfait["cause_refus"];
 				?>
 					<tr>
 					   <td><?php echo $lgEltHorsForfait["date"] ; ?></td>
 					   <td><?php echo filtrerChainePourNavig($lgEltHorsForfait["libelle"]) ; ?></td>
 					   <td><?php echo $lgEltHorsForfait["montant"] ; ?></td>
-             <?php echo"".'<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';?>
             <td><?php if($lgEltHorsForfait["justificatif"] == 1 ){
                   echo "Frais téléchargé";
+                  if($cause){
+                    echo '<td> Frais refusé <br />'.$cause.'</td>';
+                  }
+                  else{
+                    echo "";
+                  }
              }
              else{
-               echo "En attente de téléchargement";
+               echo '<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';
+               echo "<td>En attente de téléchargement</td>";
+
              }?></td>
 					</tr>
 				<?php

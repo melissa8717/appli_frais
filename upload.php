@@ -42,7 +42,7 @@ $taille_maxi = 1000000;
 $taille = $_FILES['userfile']['size'];
 $extensions = array('.png', '.gif', '.jpg', '.jpeg');
 $extension = strrchr($_FILES['userfile']['name'], '.');
-
+//si extension non autorisée
 	if(!in_array($extension, $extensions))
 	{
 	     $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg';
@@ -51,18 +51,21 @@ $extension = strrchr($_FILES['userfile']['name'], '.');
 	{
 	     $erreur = 'Le fichier est trop gros...';
 	}
+
+  //remplacement des caracteres speciaux
 if(!isset($erreur)){
-  //header('Location: cJustificatif.php');
   $fichier = strtr($fichier,
   		  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
   		  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+        //tout autre caracteres que des lettres ou des chiffres sera remplaces par un tiret
   $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-
+//creation du dossier si inexistant
   if(is_dir($dossier_visiteur) == FALSE) {
    mkdir($dossier_visiteur, 0777, true);
   }
-
+//deplacement du fichier vers le bon dossier
   if(move_uploaded_file($_FILES['userfile']['tmp_name'], $dossier_visiteur.$fichier)) {
+    //AjoutCheminJustificatif($idConnexion, $url, $idHF);
     //TODO
     //Requete à créer : update sur la table fraisforfait ligne mettre en valeur $dossier_visiteur.$chemin AjoutCheminJustificatif()
     header('Location: cJustificatif.php?id='.$idHF.'');

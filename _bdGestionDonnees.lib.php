@@ -271,7 +271,7 @@ function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
  */
 function obtenirReqEltsHorsForfaitFicheFrais( $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD( $unMois);
-    $requete = "select id, date, libelle, montant, justificatif from LigneFraisHorsForfait
+    $requete = "select id, date, libelle, montant, justificatif, cause_refus from LigneFraisHorsForfait
               where idVisiteur='" . $unIdVisiteur
               . "' and mois='" . $unMois . "'";
     return $requete;
@@ -602,4 +602,9 @@ function fraisMois($idCnx,$idVisiteur){
           . $idVisiteur . "' AND mois >='$last_year' order by fichefrais.mois asc ";
   $results = $idCnx->query($req);
   return $results;
+}
+
+function AjoutCheminJustificatif($idCnx, $url, $idFrais){
+  $requeteJustificatif = "update lignefraishorsforfait set url_justificatif ='".$url."' where idFrais ='" .$idFrais . "'";
+  $idCnx->query($requeteJustificatif);
 }
