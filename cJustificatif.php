@@ -31,7 +31,6 @@
   require($repInclude . "_sommaire.inc.php");
 
 $idFrais = $_GET['id'];
-var_dump($idFrais);
 
 ?>
 
@@ -70,7 +69,7 @@ var_dump($idFrais);
         </tr>
 
             <tr >
-              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:130px;"/></td>
+              <td ><img src="http://<?php echo $path_file;?>" style="padding-left:30%;height:75%;"/></td>
             </tr>
             <tr>
               <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2>

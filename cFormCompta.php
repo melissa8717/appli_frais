@@ -77,7 +77,7 @@ $mois = date('Ym');
                     <tr class="corpsForm">
                       <td>Cause du refus</td></tr>
                     <tr>
-                    <td><input type="text" id="txtCause" name="txtCause"[<?php echo $cause ?>]"value=""/></td>
+                    <td><input type="text" id="txtCause" name="txtCause"  /></td>
                     </tr>
                     <tr>
                     <td><h2><a href="?id=<?php echo $unIdV;?>&?id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>

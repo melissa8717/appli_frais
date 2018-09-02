@@ -95,9 +95,23 @@ foreach ($requeteVisiteur as $value) {
                              $montantFHF = $valeur[4];
                              $unId =$valeur[1];
                              $nomU = $valeur[0];
+                             $justificatif = $valeur[6];
+                             $cause = $valeur [7];
 
            ?>
-         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td><?php echo"".'<td><a href="../cAllJustificatif.php/?id='.$nomU.'&id2='.$unId.'" target="_blank">Voir le justificatif</a></td>';?>
+         <td><?php echo $fraisHF ; ?></td><td><?php echo $montantFHF ; ?></td>
+         <?php
+         if($justificatif == 1){
+           echo '<td><a href="../cAllJustificatif.php/?id='.$nomU.'&id2='.$unId.'" target="_blank">Voir le justificatif</a></td>';
+
+         }
+         else {
+           echo '<td>Pas de frais</td>';
+         }
+         if ($justificatif == 1 && $cause){
+           echo '<td>Frais refusé</td>';
+         }
+         ?>
        </tr>
      <?php }?>
 

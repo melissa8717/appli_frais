@@ -587,7 +587,7 @@ function modifierFrais($idCnx, $idFrais, $libelle, $montant){
 }
 
 function causeRefuse($idCnx,$idFrais, $cause){
-  $requeteCause ="insert into lignefraishorsforfait (id,cause_refus) values('".$idFrais."', '".$cause."')";
+  $requeteCause ="update lignefraishprsforfait set cause_refus='".$cause."' where id='".$idFrais."'";
   $idCnx->query($requeteCause);
 }
 
@@ -607,4 +607,9 @@ function fraisMois($idCnx,$idVisiteur){
 function AjoutCheminJustificatif($idCnx, $url, $idFrais){
   $requeteJustificatif = "update lignefraishorsforfait set url_justificatif ='".$url."' where idFrais ='" .$idFrais . "'";
   $idCnx->query($requeteJustificatif);
+}
+
+function modifiEtatJustificatif($idCnx, $idFrais){
+  $requete="update lignefraishorsforfait set justificatif= false where id='".$idFrais."'";
+  $idCnx->query($requete);
 }

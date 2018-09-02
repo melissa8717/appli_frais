@@ -30,6 +30,7 @@
    if(isset($_GET['delete'])){
      $file_to_delete = $_GET['delete'];
      unlink($file_to_delete);
+     $requete = modifiEtatJustificatif($idConnexion, $id);
      $id=$_GET['id'];
      header("Location:/appli_frais/cVoirfrais.php/?id=$id");
   }

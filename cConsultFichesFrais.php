@@ -171,15 +171,17 @@
                   echo "Frais téléchargé";
                   if($cause){
                     echo '<td> Frais refusé <br />'.$cause.'</td>';
+                    echo '<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';
+
                   }
                   else{
                     echo "";
                   }
              }
              else{
-               echo '<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';
                echo "<td>En attente de téléchargement</td>";
 
+               echo '<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';
              }?></td>
 					</tr>
 				<?php
