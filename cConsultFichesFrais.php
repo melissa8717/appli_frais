@@ -67,12 +67,7 @@
         </select>
       </p>
       </div>
-      <div class="piedForm">
-      <p>
-        <input id="ok" type="submit" value="Valider" size="20" title="Demandez à consulter cette fiche de frais">
-        <input id="annuler" type="reset" value="Effacer" size="20">
-      </p>
-      </div>
+  
 
       </form>
 <?php
@@ -170,7 +165,7 @@
             <td><?php if($lgEltHorsForfait["justificatif"] == 1 ){
                   echo "Frais téléchargé";
                   if($cause){
-                    echo '<td> Frais refusé <br />'.$cause.'</td>';
+                    echo '<td> Frais refusés : <br />'.$cause.'</td>';
                     echo '<td><a href="cGEd.php/?id='.$idFraisHF.'" target="_blank">Justificatif</a></td>';
 
                   }

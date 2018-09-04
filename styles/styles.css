@@ -236,7 +236,7 @@ taille de caract�res l�g�rement sup�rieure � la normale */
 
 .encadre {
   border : solid 0.1em #000;
-  width : 95%;
+  width : 100%;
 }
 /* Style pour les liens de la page principale */
 #contenu .corpsTexte {

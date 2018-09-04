@@ -146,7 +146,7 @@
             $idJeuEltsFraisForfait->free_result();
             ?>
             <br />
-            <div class="ligne-total">  <span >Total </span><?php echo $total_global.' €'; ?></div>
+            <div class="ligne-total">  <span >TOTAL </span><?php echo $total_global.' €'; ?></div>
 
           </fieldset>
       </div>
