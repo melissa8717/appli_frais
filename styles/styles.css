@@ -161,7 +161,7 @@ ul#menuList a:hover {
   width : 95%;
 }
 .corpsForm tr{
-  text-align: center;
+/*  text-align: center;*/
 }
 .piedForm {
 
@@ -183,11 +183,11 @@ form {
 .corpsForm label{
 
   float: left;
-  text-align:right;
+  /*text-align:right;*/
   width:28%;
 	margin: 0;
 	padding: 0 .5em 0 0;
-	line-height: 1.8;
+	/*line-height: 1.8;*/
 }
 input, button, textarea, select{
   font-family:"Trebuchet MS", sans-serif;
@@ -321,6 +321,8 @@ table.listeLegere th.date, table.listeLegere th.montant{
 table.listeLegere th.libelle{
   width:67.4%;
   color:black;
+vertical-align:top;
+padding-left: 25%;
 }
 
 #contenu h1{
@@ -427,4 +429,21 @@ input[type=submit]{
 
 .input-vehi{
   width: 30px;
+}
+
+.ligne-total{
+  font-weight: bold;
+  font-size: 20px;
+  height: 5%;
+  background-color: #406FA4;
+  border-radius: 15px;
+  padding-left: 20px;
+}
+
+.colone-frais{
+  width: 60%;
+}
+
+.label-frais label{
+  width: 60%;
 }

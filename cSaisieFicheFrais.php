@@ -122,24 +122,33 @@
               $total_line = $quantite * $montant;
               $total_global = $total_global + $total_line;
             ?>
-            <p>
-              <label for="<?php echo $idFraisForfait ?>">* <?php echo $libelle; ?> : </label>
-              <input type="text" id="<?php echo $idFraisForfait ?>"
-                    name="txtEltsForfait[<?php echo $idFraisForfait ?>]"
-                    size="10" maxlength="5"
-                    title="Entrez la quantité de l'élément forfaitisé"
-                    value="<?php echo $quantite; ?>" />
-            </p>
-            <p>
-            Total <?php echo $total_line . '€';?>
-          </p>
+            <table style="width:100%;">
+              <tr>
+                <td class="colone-frais">
+                <label  for="<?php echo $idFraisForfait ?>"><?php echo $libelle; ?>  </label>
+                <input style="margin-left:30%;" type="text" id="<?php echo $idFraisForfait ?>"
+                      name="txtEltsForfait[<?php echo $idFraisForfait ?>]"
+                      size="10" maxlength="5"
+                       title="Entrez la quantité de l'élément forfaitisé"
+                      value="<?php echo $quantite; ?>" />
+               </td>
+               <br /><br />
+               <td >
+                 <div >  <span >Total </span><?php echo $total_line.' €'; ?></div>
+
+               </td>
+              </tr>
+            </table>
+
             <?php
                 $lgEltForfait = $idJeuEltsFraisForfait->fetch_assoc();
             }
             $idJeuEltsFraisForfait->free_result();
             ?>
+            <br />
+            <div class="ligne-total">  <span >Total </span><?php echo $total_global.' €'; ?></div>
+
           </fieldset>
-          <span>Totaux</span><?php echo $total_global; ?>
       </div>
       <div class="piedForm">
       <p>
@@ -173,12 +182,12 @@
               <tr>
                 <td><?php echo $HorsForfais["date"] ; ?></td>
                 <td><?php echo filtrerChainePourNavig($HorsForfais["libelle"]) ; ?></td>
-                <td><?php echo $HorsForfais["montant"] ; ?></td>
+                <td><?php echo $HorsForfais["montant"]. ' €' ; ?></td>
                 <td><a href="?etape=validerSuppressionLigneHF&amp;idLigneHF=<?php echo $HorsForfais["id"]; ?>"
                        onclick="return confirm('Voulez-vous vraiment supprimer cette ligne de frais hors forfait ?');"
                        title="Supprimer la ligne de frais hors forfait">Supprimer</a></td>
               <?php
-              $montant += $HorsForfais["montant"];
+              $montant += $HorsForfais["montant"] ;
 			}
                ?></tr>
            <tr>
@@ -188,7 +197,7 @@
 			</td>
 			<td>
           <?php
-				echo $montant;
+				echo $montant.' €';
             ?>
 			</td>
           </tr>

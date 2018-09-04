@@ -174,12 +174,11 @@ function obtenirDernierMoisSaisi($idCnx, $unIdVisiteur) {
 function ajouterFicheFrais($idCnx, $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD($unMois);
     // modification de la dernière fiche de frais du utilisateur
-    /*$dernierMois = obtenirDernierMoisSaisi($idCnx, $unIdVisiteur);
+    $dernierMois = obtenirDernierMoisSaisi($idCnx, $unIdVisiteur);
     $laDerniereFiche = obtenirDetailFicheFrais($idCnx, $dernierMois, $unIdVisiteur);
-    die();
     if ( is_array($laDerniereFiche) && $laDerniereFiche['idEtat']=='CR'){
         modifierEtatFicheFrais($idCnx, $dernierMois, $unIdVisiteur, 'CL');
-    }*/
+    }
 
 
     // ajout de la fiche de frais à l'état Créé
