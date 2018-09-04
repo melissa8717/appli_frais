@@ -30,14 +30,16 @@
    if(isset($_GET['delete'])){
      $file_to_delete = $_GET['delete'];
      unlink($file_to_delete);
-     $id=$_GET['id'];
-     header("Location:/appli_frais/cVoirfrais.php/?id=$id");
+     $idVehi=$_GET['id'];
+     header("Location:/appli_frais/cAccueil.php");
   }
-  $unId = $_GET["id"];
+
+  $idVehi=$_GET['id'];
+
 
 
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireComptable.inc.php");
+  require($repInclude . "_sommaire.inc.php");
 
 ?>
 
@@ -47,13 +49,13 @@
 
 <?php
 $mois = date('Ym');
-$requete = obtenirInfoVH($idConnexion, $unId);
+$requete = obtenirInfoVH($idConnexion, $lgUser["id"]);
 foreach ($requete as  $vehi) {
   $idVehi = $vehi[0];
 }
 
 if(isset($_GET['id'])){
-  $unId = $_GET["id"];
+  $idVehi = $_GET["id"];
 
           if ( $etape == "validerConnexionCompta" )
           {
@@ -65,7 +67,7 @@ if(isset($_GET['id'])){
 
 
           $nbFichier = 0;
-          $dir = 'C:/wamp64/www/appli_frais/upload/'.$unId."/".$idVehi."/";
+          $dir = 'C:/wamp64/www/appli_frais/upload/Vehicule/'.$lgUser["id"]."/".$idVehi."/";
 
           if($dossier = opendir($dir)){
             $path = $_SERVER['SERVER_NAME'] ;
@@ -78,9 +80,10 @@ if(isset($_GET['id'])){
                 <table>
                   <tr>
                 <?php echo '<td>'.'<img src="http://'.$path_file.'/'.$fichier.'"/>'.'</td>';?></tr>
+                <td><h2><a href="?delete=<?php echo $path_file;?>">Supprimer le fichier</a> </h2>
+                    <h2><a href="?valider&id=<?php echo $idVehi;?>">Valider</a></h2>
+                </td>
 
-
-                <tr><td><h2><a href="?id=<?php echo $unId;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>;
               <?php }
             }
             closedir($dossier);

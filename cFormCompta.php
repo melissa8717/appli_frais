@@ -31,15 +31,12 @@
      $requete = causeRefuse($idConnexion,$unIdFrais, $_POST['txtCause']);
      $results_file = recupererCheminFichier($idConnexion, $idFrais);
      $url_file = $results_file->fetch_assoc();
-
      $file_to_delete = $url_file['url_justificatif'];
-     //unlink($file_to_delete);
+     unlink($file_to_delete);
      AjoutCheminJustificatif($idConnexion, '', $unIdFrais);
   }
   $unIdV =$_GET["id"];
-
-
-
+  
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaireComptable.inc.php");
 

@@ -36,7 +36,7 @@
   }
 
   require($repInclude . "_entete.inc.html");
-  require($repInclude . "_sommaireComptable.inc.php");
+  require($repInclude . "sommaire_comptable.php");
   //$unId = $_GET["id"];
 
 ?>
@@ -82,7 +82,7 @@ $reqVH=obtenirInfoVH($idConnexion,$lgUser["id"] );
 
 
 	?>
-           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?><?php echo"".'<td><a href="cJustificatifVehicule.php/?id='.$unId.'">Voir le justificatif</a></td>';?>
+           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?><?php echo"".'<td><a href="cJustificatifVehiculeComptable.php/?id='.$unId.'">Voir le justificatif</a></td>';?>
      </tr>
    <?php }?>
 

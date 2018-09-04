@@ -35,10 +35,8 @@
            <li class="smenu">
               <a href="cAccueil.php" title="Page d'accueil">Accueil</a>
            </li>
-           <li class="smenu">
-              <a href="cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
-           </li>
-        
+
+
            <li class="smenu">
               <?php echo'<a href="cConsultVehicule.php/?id='.$idUser.'"';?>  title="Consultation de mon véhicule">Mon véhicule</a>
            </li>
@@ -50,6 +48,9 @@
            </li>
            <li class="smenu">
               <a href="cFicheRemboursement.php" title="Consultation de mes fiches de remboursement">Mes fiches de remboursement</a>
+           </li>
+           <li class="smenu">
+              <a href="cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
            </li>
          </ul>
         <?php
