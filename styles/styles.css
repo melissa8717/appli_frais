@@ -234,9 +234,10 @@ taille de caract�res l�g�rement sup�rieure � la normale */
    width : 95%
 }
 
-.encadre {
-  border : solid 0.1em #000;
+.encadre p{
+  border : 2px solid blue;
   width : 100%;
+  height: 20px;
 }
 /* Style pour les liens de la page principale */
 #contenu .corpsTexte {
@@ -446,4 +447,13 @@ input[type=submit]{
 
 .label-frais label{
   width: 60%;
+}
+
+.totaux-frais{
+  font-size : 25px;
+  font-weight: bold;
+  background-color: #00A1F2;
+  border-radius: 15px;
+  padding-left: 15px;
+
 }

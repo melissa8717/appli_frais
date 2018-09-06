@@ -67,7 +67,12 @@
         </select>
       </p>
       </div>
-  
+      <div class="piedForm">
+      <p>
+        <input id="ok" type="submit" value="Valider" size="20" title="Demandez à consulter cette fiche de frais">
+        <input id="annuler" type="reset" value="Effacer" size="20">
+      </p>
+      </div>
 
       </form>
 <?php
@@ -84,9 +89,7 @@
     <em><?php echo $tabFicheFrais["libelleEtat"]; ?> </em>
     depuis le <em><?php echo $tabFicheFrais["dateModif"]; ?></em></h3>
     <div class="encadre">
-    <p>Montant validé : <?php echo $tabFicheFrais["montantValide"] ;
-        ?>
-    </p>
+    <p>Montant validé : <?php echo $tabFicheFrais["montantValide"] ;  ?> €</p>
 <?php
             // demande de la requête pour obtenir la liste des éléments
             // forfaitisés du visiteur connecté pour le mois demandé

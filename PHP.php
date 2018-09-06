@@ -158,9 +158,9 @@ $pdf->Cell(0,10,utf8_decode('FRAIS FORFATISÉS'),2,0,'C');
 $pdf->SetFont('Times','',12);
 $pdf->Ln(20);
 
-$header=array('Type','Forfait',utf8_decode('Quantité'),'Total ligne');
 $valeur = $pdf->LoadData($db, $unId, $mois);
 $last_ligne = end($valeur);
+$header=array('Type',,utf8_decode('Quantité'),'Forfait','Total ligne');
 $total = $last_ligne['calculFrais'];
 $pdf->BasicTable($header, $valeur);
 $pdf->Ln(20);

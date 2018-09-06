@@ -210,8 +210,8 @@
 
 
     </table>
-    <tr>
-    </tr>
+    <?php $somme = $montant + $total_global;?>
+  <p class="totaux-frais">TOTAL FRAIS : <?php echo $somme;?> € </p>
       <form action="" method="post">
       <div class="corpsForm">
           <input type="hidden" name="etape" value="validerAjoutLigneHF" />
