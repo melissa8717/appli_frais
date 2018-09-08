@@ -270,7 +270,7 @@ function obtenirReqEltsForfaitFicheFrais( $unMois, $unIdVisiteur) {
  */
 function obtenirReqEltsHorsForfaitFicheFrais( $unMois, $unIdVisiteur) {
     $unMois = filtrerChainePourBD( $unMois);
-    $requete = "select id, date, libelle, montant, justificatif, cause_refus from LigneFraisHorsForfait
+    $requete = "select id, date, libelle, montant, justificatif, cause_refus, etat from LigneFraisHorsForfait
               where idVisiteur='" . $unIdVisiteur
               . "' and mois='" . $unMois . "'";
     return $requete;
@@ -588,7 +588,6 @@ function modifierFrais($idCnx, $idFrais, $libelle, $montant){
 function causeRefuse($idCnx,$idFrais, $cause){
 
   $requeteCause ="update lignefraishorsforfait set cause_refus='".$cause."' where id='".$idFrais."'";
-  var_dump($requeteCause);
   $idCnx->query($requeteCause);
 }
 
@@ -603,7 +602,7 @@ function fraisMois($idCnx,$idVisiteur){
           . $idVisiteur . "' AND mois >='$last_year' order by fichefrais.mois asc ";
   $results = $idCnx->query($req);
   return $results;
-}
+} 
 
 function AjoutCheminJustificatif($idCnx, $url, $idFrais){
   $requeteJustificatif = "update lignefraishorsforfait set url_justificatif ='".$url."' where id ='" .$idFrais . "'";
@@ -619,4 +618,35 @@ function recupererCheminFichier($idCnx, $idFrais){
   $requeteChemin= "select url_justificatif from lignefraishorsforfait where id ='".$idFrais."'";
   $results=  $idCnx->query($requeteChemin);
   return $results;
+}
+
+function etatJustificatif( $idCnx, $idFrais) {
+    $requete = "update lignefraishorsforfait set etat ='En attente' where id='".$idFrais."'";
+    return $requete;
+}
+
+function etatJustificatifAccepte( $idCnx, $idFrais) {
+    $requete = "update lignefraishorsforfait set etat ='Validé' where id='".$idFrais."'";
+    return $requete;
+}
+
+function etatJustificatifRefus( $idCnx, $idFrais) {
+    $requete = "update lignefraishorsforfait set etat ='Refusé' where id='".$idFrais."'";
+    return $requete;
+}
+
+function fraisAllVisiteur($idCnx,$idVisiteur,$mois){
+
+  $req = "select fichefrais.mois from  fichefrais where fichefrais.idVisiteur ='"
+          . $idVisiteur . "'  AND mois='".$mois."' order by fichefrais.mois asc ";
+          var_dump($req);
+          $result = $idCnx->query($req);
+          var_dump($result);
+          if ( $result) {
+             $ligne = mysqli_fetch_all($result);
+             var_dump($ligne);
+
+          }
+            return $ligne;
+
 }

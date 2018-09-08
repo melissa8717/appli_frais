@@ -18,25 +18,25 @@
       if ( is_array($lgUser) ) {
           affecterInfosConnecte($lgUser["id"], $lgUser["login"]);
       }
-      else {
-          ajouterErreur($tabErreurs, "Pseudo et/ou mot de passe incorrects");
-      }
+    
   }
   if ( $etape == "validerConnexion" && nbErreurs($tabErreurs) == 0 ) {
         header("Location:cValideFrais.php");
   }
   $unIdFrais = $_GET["id2"];
 
-   if(isset($_POST)){
-     $requete = causeRefuse($idConnexion,$unIdFrais, $_POST['txtCause']);
-     $results_file = recupererCheminFichier($idConnexion, $idFrais);
+   if(isset($_POST['delete'])){
+     causeRefuse($idConnexion,$unIdFrais, $_POST['txtCause']);
+     $results_file = recupererCheminFichier($idConnexion,$unIdFrais);
+     AjoutCheminJustificatif($idConnexion, '', $unIdFrais);
+     etatJustificatifRefus($idConnexion,$unIdFrais);
      $url_file = $results_file->fetch_assoc();
      $file_to_delete = $url_file['url_justificatif'];
      unlink($file_to_delete);
-     AjoutCheminJustificatif($idConnexion, '', $unIdFrais);
+
   }
   $unIdV =$_GET["id"];
-  
+
   require($repInclude . "_entete.inc.html");
   require($repInclude . "_sommaireComptable.inc.php");
 
@@ -81,7 +81,7 @@ $mois = date('Ym');
                     <tr>
                     <!--<td><h2><a href="?id=<?php echo $unIdV;?>&id2=<?php echo $unIdFrais;?>&delete=<?php echo $dir.$fichier;?>">Refuser</a> </h2><td></tr><br /></table>-->
                   </table>
-                  <input type="submit" value="Supprimer"/>
+                  <input type="submit" value="Supprimer" name="delete"/>
                 </form>
               <?php }
             }

@@ -39,10 +39,11 @@
 		   <li class="smenu">
               <a href="../cConsultFrais.php" title="Voir tous les visiteurs">Voir les forfaits des frais</a>
            </li>
+        
            <li class="smenu">
               <a href="../cSeDeconnecter.php" title="Se déconnecter">Se déconnecter</a>
            </li>
-           
+
 
 
          </ul>

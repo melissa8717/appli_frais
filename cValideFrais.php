@@ -58,7 +58,7 @@
 
      <table class="listeLegere">
        <tr class="corpsForm">
-         <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs Frais</td><td>Carte grise</td></tr>
+         <td style="visibility: hidden;">id</td><td>Nom </td><td>Prénom</td><td>Téléphone</td><td>Justificatifs Frais</td><td>Carte grise</td><td>Fiche de frais</td></tr>
 
       <?php
 
@@ -82,7 +82,7 @@ $reqVH=obtenirInfoVH($idConnexion,$lgUser["id"] );
 
 
 	?>
-           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?><?php echo"".'<td><a href="cJustificatifVehiculeComptable.php/?id='.$unId.'">Voir le justificatif</a></td>';?>
+           <td style="visibility: hidden;"><?php echo $unId ; ?></td><td><?php echo $nom ; ?></td><td><?php echo $prenom ; ?></td><td><?php echo $tel;?></td><?php echo"".'<td><a href="cVoirfrais.php/?id='.$unId.'">Voir les frais</a></td>';?><?php echo"".'<td><a href="cJustificatifVehiculeComptable.php/?id='.$unId.'">Voir le justificatif</a></td>';?><?php echo"".'<td><a href="cConsultFiche.php/?id='.$unId.'">Voir les fiches de frais</a></td>';?>
      </tr>
    <?php }?>
 
